@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/app/api/register.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1709051485469,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1709051485469,
+            "name": "Commit-0",
+            "content": "// app/api/register.js\n\nexport default function handler(req, res) {\n    if (req.method === 'POST') {\n      const { username, password, role } = req.body;\n      // Implement registration logic here\n      res.status(200).json({ message: 'User registered successfully', user: { username, role } });\n    } else {\n      res.setHeader('Allow', ['POST']);\n      res.status(405).end(`Method ${req.method} Not Allowed`);\n    }\n  }\n  "
+        }
+    ]
+}

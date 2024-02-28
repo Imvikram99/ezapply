@@ -1,0 +1,78 @@
+{
+    "sourceFile": "src/app/signup/page.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 15,
+            "patches": [
+                {
+                    "date": 1709051429761,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1709051556307,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,11 +7,20 @@\n   const [role, setRole] = useState('');\n \n   async function handleSubmit(e) {\n     e.preventDefault();\n-    // API call logic here\n-    alert(`Signup with username: ${username}, password: ${password}, role: ${role}`);\n+    const response = await fetch('/api/register', {\n+      method: 'POST',\n+      headers: {\n+        'Content-Type': 'application/json',\n+      },\n+      body: JSON.stringify({ username, password, role }),\n+    });\n+  \n+    const data = await response.json();\n+    alert(data.message); // Display success message or handle errors accordingly\n   }\n+  \n \n   return (\n     <div>\n       <h1>Signup</h1>\n"
+                },
+                {
+                    "date": 1709051769351,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n // app/signup/page.jsx\n+\n import { useState } from 'react';\n \n export default function Page() {\n   const [username, setUsername] = useState('');\n"
+                },
+                {
+                    "date": 1709051785982,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n-// app/signup/page.jsx\n \n+use client;\n import { useState } from 'react';\n \n export default function Page() {\n   const [username, setUsername] = useState('');\n"
+                },
+                {
+                    "date": 1709052985768,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,7 @@\n+\"use client\";import { useState } from 'react';\n \n-use client;\n-import { useState } from 'react';\n-\n-export default function Page() {\n+export default function Signup() {\n   const [username, setUsername] = useState('');\n   const [password, setPassword] = useState('');\n   const [role, setRole] = useState('');\n \n"
+                },
+                {
+                    "date": 1709053225026,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,25 +1,42 @@\n-\"use client\";import { useState } from 'react';\n+\"use client\";\n+import { useState } from 'react';\n \n export default function Signup() {\n   const [username, setUsername] = useState('');\n   const [password, setPassword] = useState('');\n   const [role, setRole] = useState('');\n \n-  async function handleSubmit(e) {\n-    e.preventDefault();\n-    const response = await fetch('/api/register', {\n-      method: 'POST',\n-      headers: {\n-        'Content-Type': 'application/json',\n-      },\n-      body: JSON.stringify({ username, password, role }),\n-    });\n+    // Function to handle form submission\n+    async function handleSubmit(e) {\n+      e.preventDefault(); // Prevent default form submission behavior\n   \n-    const data = await response.json();\n-    alert(data.message); // Display success message or handle errors accordingly\n-  }\n+      // POST request to the backend\n+      try {\n+        const response = await fetch('{{brbh1}}/auth/signup', {\n+          method: 'POST',\n+          headers: {\n+            'Content-Type': 'application/json',\n+          },\n+          body: JSON.stringify({\n+            username,\n+            password,\n+            role,\n+          }),\n+        });\n   \n+        const data = await response.json();\n+  \n+        // Handle response data\n+        console.log(data);\n+        alert(data.message); // Display success message\n+      } catch (error) {\n+        console.error('Registration failed:', error);\n+        alert('Registration failed. Please try again.');\n+      }\n+    }\n+  \n+  \n \n   return (\n     <div>\n       <h1>Signup</h1>\n"
+                },
+                {
+                    "date": 1709053231432,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n       e.preventDefault(); // Prevent default form submission behavior\n   \n       // POST request to the backend\n       try {\n-        const response = await fetch('{{brbh1}}/auth/signup', {\n+        const response = await fetch('/auth/signup', {\n           method: 'POST',\n           headers: {\n             'Content-Type': 'application/json',\n           },\n"
+                },
+                {
+                    "date": 1709053239469,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n       e.preventDefault(); // Prevent default form submission behavior\n   \n       // POST request to the backend\n       try {\n-        const response = await fetch('/auth/signup', {\n+        const response = await fetch('http://localhost/auth/signup', {\n           method: 'POST',\n           headers: {\n             'Content-Type': 'application/json',\n           },\n"
+                },
+                {
+                    "date": 1709053246769,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n       e.preventDefault(); // Prevent default form submission behavior\n   \n       // POST request to the backend\n       try {\n-        const response = await fetch('http://localhost/auth/signup', {\n+        const response = await fetch('http://localhost:8085/auth/signup', {\n           method: 'POST',\n           headers: {\n             'Content-Type': 'application/json',\n           },\n"
+                },
+                {
+                    "date": 1709053498808,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,8 +22,9 @@\n             password,\n             role,\n           }),\n         });\n+        c\n   \n         const data = await response.json();\n   \n         // Handle response data\n"
+                },
+                {
+                    "date": 1709053504644,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n             password,\n             role,\n           }),\n         });\n-        c\n+        console.log\n   \n         const data = await response.json();\n   \n         // Handle response data\n"
+                },
+                {
+                    "date": 1709053510899,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n             password,\n             role,\n           }),\n         });\n-        console.log\n+        console.log(body)\n   \n         const data = await response.json();\n   \n         // Handle response data\n"
+                },
+                {
+                    "date": 1709053577776,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n             password,\n             role,\n           }),\n         });\n-        console.log(body)\n+        \n   \n         const data = await response.json();\n   \n         // Handle response data\n"
+                },
+                {
+                    "date": 1709053715619,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n           headers: {\n             'Content-Type': 'application/json',\n           },\n           body: JSON.stringify({\n-            username,\n+            username:username,\n             password,\n             role,\n           }),\n         });\n"
+                },
+                {
+                    "date": 1709053725804,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n             'Content-Type': 'application/json',\n           },\n           body: JSON.stringify({\n             username:username,\n-            password,\n+            password:password,\n             role,\n           }),\n         });\n         \n"
+                },
+                {
+                    "date": 1709053734958,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n           },\n           body: JSON.stringify({\n             username:username,\n             password:password,\n-            role,\n+            role: role,\n           }),\n         });\n         \n   \n"
+                }
+            ],
+            "date": 1709051429761,
+            "name": "Commit-0",
+            "content": "// app/signup/page.jsx\nimport { useState } from 'react';\n\nexport default function Page() {\n  const [username, setUsername] = useState('');\n  const [password, setPassword] = useState('');\n  const [role, setRole] = useState('');\n\n  async function handleSubmit(e) {\n    e.preventDefault();\n    // API call logic here\n    alert(`Signup with username: ${username}, password: ${password}, role: ${role}`);\n  }\n\n  return (\n    <div>\n      <h1>Signup</h1>\n      <form onSubmit={handleSubmit}>\n        <input\n          type=\"text\"\n          value={username}\n          onChange={(e) => setUsername(e.target.value)}\n          placeholder=\"Username\"\n          required\n        />\n        <input\n          type=\"password\"\n          value={password}\n          onChange={(e) => setPassword(e.target.value)}\n          placeholder=\"Password\"\n          required\n        />\n        <input\n          type=\"text\"\n          value={role}\n          onChange={(e) => setRole(e.target.value)}\n          placeholder=\"Role\"\n          required\n        />\n        <button type=\"submit\">Sign Up</button>\n      </form>\n    </div>\n  );\n}\n"
+        }
+    ]
+}

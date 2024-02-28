@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/app/signup/page.client.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1709051889843,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1709052045645,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n use client;\n import { useState } from 'react';\n \n-export default function Page() {\n+export default function SignupPage() {\n   const [username, setUsername] = useState('');\n   const [password, setPassword] = useState('');\n   const [role, setRole] = useState('');\n \n"
+                },
+                {
+                    "date": 1709052306460,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n use client;\n import { useState } from 'react';\n \n-export default function SignupPage() {\n+export default function Signup() {\n   const [username, setUsername] = useState('');\n   const [password, setPassword] = useState('');\n   const [role, setRole] = useState('');\n \n"
+                },
+                {
+                    "date": 1709052712301,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-use client;\n+\n import { useState } from 'react';\n \n export default function Signup() {\n   const [username, setUsername] = useState('');\n"
+                }
+            ],
+            "date": 1709051889843,
+            "name": "Commit-0",
+            "content": "use client;\nimport { useState } from 'react';\n\nexport default function Page() {\n  const [username, setUsername] = useState('');\n  const [password, setPassword] = useState('');\n  const [role, setRole] = useState('');\n\n  async function handleSubmit(e) {\n    e.preventDefault();\n    const response = await fetch('/api/register', {\n      method: 'POST',\n      headers: {\n        'Content-Type': 'application/json',\n      },\n      body: JSON.stringify({ username, password, role }),\n    });\n  \n    const data = await response.json();\n    alert(data.message); // Display success message or handle errors accordingly\n  }\n  \n\n  return (\n    <div>\n      <h1>Signup</h1>\n      <form onSubmit={handleSubmit}>\n        <input\n          type=\"text\"\n          value={username}\n          onChange={(e) => setUsername(e.target.value)}\n          placeholder=\"Username\"\n          required\n        />\n        <input\n          type=\"password\"\n          value={password}\n          onChange={(e) => setPassword(e.target.value)}\n          placeholder=\"Password\"\n          required\n        />\n        <input\n          type=\"text\"\n          value={role}\n          onChange={(e) => setRole(e.target.value)}\n          placeholder=\"Role\"\n          required\n        />\n        <button type=\"submit\">Sign Up</button>\n      </form>\n    </div>\n  );\n}\n"
+        }
+    ]
+}

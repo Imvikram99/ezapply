@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/app/login/page.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1709102843393,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1709102857458,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n // src/app/login.page.client.jsx or pages/login.jsx (for older Next.js versions without the app directory)\n+\n import { useState } from 'react';\n \n export default function LoginPage() {\n   const [username, setUsername] = useState('');\n"
+                }
+            ],
+            "date": 1709102843393,
+            "name": "Commit-0",
+            "content": "// src/app/login.page.client.jsx or pages/login.jsx (for older Next.js versions without the app directory)\nimport { useState } from 'react';\n\nexport default function LoginPage() {\n  const [username, setUsername] = useState('');\n  const [password, setPassword] = useState('');\n  const [error, setError] = useState('');\n\n  async function handleSubmit(e) {\n    e.preventDefault(); // Prevent the default form submission\n\n    try {\n      const response = await fetch('http://localhost:8085/auth/login', {\n        method: 'POST',\n        headers: {\n          'Content-Type': 'application/json',\n        },\n        body: JSON.stringify({\n          username,\n          password,\n        }),\n      });\n\n      if (!response.ok) {\n        throw new Error('Login failed');\n      }\n\n      const { token } = await response.json();\n      // Here, you would typically store the token in a state management store or a context for future authenticated requests\n      console.log('Login Successful. Token:', token);\n\n      // Redirect to a different page or update UI upon successful login\n    } catch (error) {\n      console.error('Login error:', error);\n      setError('Failed to login. Please check your username and password.');\n    }\n  }\n\n  return (\n    <div>\n      <h1>Login</h1>\n      {error && <p style={{ color: 'red' }}>{error}</p>}\n      <form onSubmit={handleSubmit}>\n        <div>\n          <label htmlFor=\"username\">Username:</label>\n          <input\n            id=\"username\"\n            type=\"text\"\n            value={username}\n            onChange={(e) => setUsername(e.target.value)}\n            required\n          />\n        </div>\n        <div>\n          <label htmlFor=\"password\">Password:</label>\n          <input\n            id=\"password\"\n            type=\"password\"\n            value={password}\n            onChange={(e) => setPassword(e.target.value)}\n            required\n          />\n        </div>\n        <button type=\"submit\">Login</button>\n      </form>\n    </div>\n  );\n}\n"
+        }
+    ]
+}
