@@ -1,80 +1,74 @@
-"use client";
-import Image from "next/image";
-import { useState } from "react";
+"use client"
 
-export default function login() {
+import { useState } from "react";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+
+export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
 
-  // Function to handle form submission
   async function handleSubmit(e) {
     e.preventDefault(); // Prevent default form submission behavior
 
-    // POST request to the backend
     try {
-      const response = await fetch("http://localhost:8085/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: username,
-          password: password,
-          role: role,
-        }),
+      const response = await axios.post("http://ec2-3-109-211-75.ap-south-1.compute.amazonaws.com:8085/auth/login", {
+        username: username,
+        password: password,
       });
 
-      const data = await response.json();
-
-      // Handle response data
-      console.log(data);
-      alert(data.message); // Display success message
+      if(response.data.token)
+      toast.success("Successfully logged in."); // Display success message
     } catch (error) {
-      console.error("Registration failed:", error);
-      alert("Registration failed. Please try again.");
+      console.error("Login failed:", error);
+      toast.error("Login failed. Please try again.");
     }
   }
 
   return (
     <div className="signup-page">
+      <Toaster/>
       <img src={"/login.jpg"} className="login-img" />
-      <div class="auth-container">
+      <div className="auth-container">
         <h1>
           <b>Welcome Guest,</b> Sign in to Ezapply
         </h1>
-        <form class="signup-form">
-          <div class="field-container">
-            <label for="email" class="field-label">
+        <form className="signup-form" onSubmit={handleSubmit}>
+          <div className="field-container">
+            <label htmlFor="email" className="field-label">
               Email Address
             </label>
             <input
-              id="signUp-email-input"
+              id="signIn-email-input"
               type="text"
               placeholder="you@example.com"
               name="email"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
-          <div class="field-container field-container-relative">
-            <label for="password" class="field-label">
+          <div className="field-container field-container-relative">
+            <label htmlFor="password" className="field-label">
               Password
             </label>
-            <div class="signUpPasswordWrapper">
+            <div className="signInPasswordWrapper">
               <input
-                id="signUpPassword"
+                id="signInPassword"
                 type="password"
-                placeholder="Enter 8 characters or more"
+                placeholder="Enter your password"
                 name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
           
-          <button id="signUpSubmit" type="submit" class="submit-button">
-            Continue
+          <button id="signInSubmit" type="submit" className="submit-button">
+            Sign In
           </button>
-          <div class="switch-container">
+          <div className="switch-container">
             <p>
-              Don't have an account? <span tabindex="0">Sign up</span>
+              Don't have an account? <span tabIndex="0">Sign up</span>
             </p>
           </div>
         </form>

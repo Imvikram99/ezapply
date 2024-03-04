@@ -1,51 +1,56 @@
 "use client";
-import Image from "next/image";
+
 import { useState } from "react";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [role, setRole] = useState("JOBSEEKER");
+  const router = useRouter()
+ 
 
-  // Function to handle form submission
+
   async function handleSubmit(e) {
     e.preventDefault(); // Prevent default form submission behavior
 
-    // POST request to the backend
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
     try {
-      const response = await fetch("http://localhost:8085/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      const response = await axios.post(
+        "http://ec2-3-109-211-75.ap-south-1.compute.amazonaws.com:8085/auth/signup",
+        {
           username: username,
           password: password,
           role: role,
-        }),
-      });
+        }
+      );
 
-      const data = await response.json();
-
-      // Handle response data
-      console.log(data);
-      alert(data.message); // Display success message
+      console.log(response.data);
+      toast.success(response.data.message); // Display success message
     } catch (error) {
       console.error("Registration failed:", error);
-      alert("Registration failed. Please try again.");
+      toast.error("Registration failed. Please try again.");
     }
   }
 
   return (
     <div className="signup-page">
+      <Toaster />
       <img src={"/login.jpg"} className="login-img" />
-      <div class="auth-container">
+      <div className="auth-container">
         <h1>
           <b>Welcome Guest,</b> Sign up for Ezapply
         </h1>
-        <form class="signup-form">
-          <div class="field-container">
-            <label for="email" class="field-label">
+        <form className="signup-form" onSubmit={handleSubmit}>
+          <div className="field-container">
+            <label htmlFor="email" className="field-label">
               Email Address
             </label>
             <input
@@ -53,40 +58,46 @@ export default function Signup() {
               type="text"
               placeholder="you@example.com"
               name="email"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
-          <div class="field-container field-container-relative">
-            <label for="password" class="field-label">
+          <div className="field-container field-container-relative">
+            <label htmlFor="password" className="field-label">
               Password
             </label>
-            <div class="signUpPasswordWrapper">
+            <div className="signUpPasswordWrapper">
               <input
                 id="signUpPassword"
                 type="password"
                 placeholder="Enter 8 characters or more"
                 name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
-          <div class="field-container">
-            <label for="confirmpassword" class="field-label">
+          <div className="field-container">
+            <label htmlFor="confirmpassword" className="field-label">
               Confirm Password
             </label>
-            <div class="signUpConfirmPassWrapper">
+            <div className="signUpConfirmPassWrapper">
               <input
                 id="signUpConfirmPassword"
                 type="password"
                 placeholder="Same password as above"
                 name="confirmpassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
           </div>
-          <button id="signUpSubmit" type="submit" class="submit-button">
+          <button id="signUpSubmit" type="submit" className="submit-button">
             Continue
           </button>
-          <div class="switch-container">
+          <div className="switch-container">
             <p>
-              Already have an account? <span tabindex="0">Sign In</span>
+              Already have an account? <span tabIndex="0" onClick={() => router.push('/login', { scroll: false })}>Sign In</span>
             </p>
           </div>
         </form>

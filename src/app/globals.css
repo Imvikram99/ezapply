@@ -172,7 +172,7 @@ body {
   background-repeat: no-repeat;
   background-position: center center;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   max-width: 30vw;
   left: 0;
   top: 0;
