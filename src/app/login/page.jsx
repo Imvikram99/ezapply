@@ -1,68 +1,84 @@
 "use client";
-import { useState } from 'react';
+import Image from "next/image";
+import { useState } from "react";
 
-export default function LoginPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+export default function login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
 
+  // Function to handle form submission
   async function handleSubmit(e) {
-    e.preventDefault(); // Prevent the default form submission
+    e.preventDefault(); // Prevent default form submission behavior
 
+    // POST request to the backend
     try {
-      const response = await fetch('http://localhost:8085/auth/login', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8085/auth/signup", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username,
-          password,
+          username: username,
+          password: password,
+          role: role,
         }),
       });
 
-      if (!response.ok) {
-        throw new Error('Login failed');
-      }
+      const data = await response.json();
 
-      const { token } = await response.json();
-      // Here, you would typically store the token in a state management store or a context for future authenticated requests
-      console.log('Login Successful. Token:', token);
-
-      // Redirect to a different page or update UI upon successful login
+      // Handle response data
+      console.log(data);
+      alert(data.message); // Display success message
     } catch (error) {
-      console.error('Login error:', error);
-      setError('Failed to login. Please check your username and password.');
+      console.error("Registration failed:", error);
+      alert("Registration failed. Please try again.");
     }
   }
 
   return (
-    <div>
-      <h1>Login</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input
-            id="username"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
+    <div className="signup-page">
+      <img src={"/login.jpg"} className="login-img" />
+      <div class="auth-container">
+        <h1>
+          <b>Welcome Guest,</b> Sign in to Ezapply
+        </h1>
+        <form class="signup-form">
+          <div class="field-container">
+            <label for="email" class="field-label">
+              Email Address
+            </label>
+            <input
+              id="signUp-email-input"
+              type="text"
+              placeholder="you@example.com"
+              name="email"
+            />
+          </div>
+          <div class="field-container field-container-relative">
+            <label for="password" class="field-label">
+              Password
+            </label>
+            <div class="signUpPasswordWrapper">
+              <input
+                id="signUpPassword"
+                type="password"
+                placeholder="Enter 8 characters or more"
+                name="password"
+              />
+            </div>
+          </div>
+          
+          <button id="signUpSubmit" type="submit" class="submit-button">
+            Continue
+          </button>
+          <div class="switch-container">
+            <p>
+              Don't have an account? <span tabindex="0">Sign up</span>
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
