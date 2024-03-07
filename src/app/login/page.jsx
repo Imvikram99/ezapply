@@ -1,68 +1,78 @@
-"use client";
-import { useState } from 'react';
+"use client"
 
-export default function LoginPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+import { useState } from "react";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+
+export default function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   async function handleSubmit(e) {
-    e.preventDefault(); // Prevent the default form submission
+    e.preventDefault(); // Prevent default form submission behavior
 
     try {
-      const response = await fetch('http://localhost:8085/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
+      const response = await axios.post("http://ec2-3-109-211-75.ap-south-1.compute.amazonaws.com:8085/auth/login", {
+        username: username,
+        password: password,
       });
 
-      if (!response.ok) {
-        throw new Error('Login failed');
-      }
-
-      const { token } = await response.json();
-      // Here, you would typically store the token in a state management store or a context for future authenticated requests
-      console.log('Login Successful. Token:', token);
-
-      // Redirect to a different page or update UI upon successful login
+      if(response.data.token)
+      toast.success("Successfully logged in."); // Display success message
     } catch (error) {
-      console.error('Login error:', error);
-      setError('Failed to login. Please check your username and password.');
+      console.error("Login failed:", error);
+      toast.error("Login failed. Please try again.");
     }
   }
 
   return (
-    <div>
-      <h1>Login</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input
-            id="username"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
+    <div className="signup-page">
+      <Toaster/>
+      <img src={"/login.jpg"} className="login-img" />
+      <div className="auth-container">
+        <h1>
+          <b>Welcome Guest,</b> Sign in to Ezapply
+        </h1>
+        <form className="signup-form" onSubmit={handleSubmit}>
+          <div className="field-container">
+            <label htmlFor="email" className="field-label">
+              Email Address
+            </label>
+            <input
+              id="signIn-email-input"
+              type="text"
+              placeholder="you@example.com"
+              name="email"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+          <div className="field-container field-container-relative">
+            <label htmlFor="password" className="field-label">
+              Password
+            </label>
+            <div className="signInPasswordWrapper">
+              <input
+                id="signInPassword"
+                type="password"
+                placeholder="Enter your password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+          </div>
+          
+          <button id="signInSubmit" type="submit" className="submit-button">
+            Sign In
+          </button>
+          <div className="switch-container">
+            <p>
+              Don't have an account? <span tabIndex="0"  onClick={() => router.push('/signup', { scroll: false })}>Sign up</span>
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

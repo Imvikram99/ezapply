@@ -1,70 +1,107 @@
 "use client";
-import { useState } from 'react';
+
+import { useState } from "react";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function Signup() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [role, setRole] = useState("JOBSEEKER");
+  const router = useRouter()
+ 
 
-    // Function to handle form submission
-    async function handleSubmit(e) {
-      e.preventDefault(); // Prevent default form submission behavior
-  
-      // POST request to the backend
-      try {
-        const response = await fetch('http://localhost:8085/auth/signup', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            username:username,
-            password:password,
-            role: role,
-          }),
-        });
-        
-  
-        const data = await response.json();
-  
-        // Handle response data
-        console.log(data);
-        alert(data.message); // Display success message
-      } catch (error) {
-        console.error('Registration failed:', error);
-        alert('Registration failed. Please try again.');
-      }
+
+  async function handleSubmit(e) {
+    e.preventDefault(); // Prevent default form submission behavior
+
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
     }
-  
-  
+
+    try {
+      const response = await axios.post(
+        "http://ec2-3-109-211-75.ap-south-1.compute.amazonaws.com:8085/auth/signup",
+        {
+          username: username,
+          password: password,
+          role: role,
+        }
+      );
+
+      console.log(response.data);
+      toast.success(response.data.message); // Display success message
+    } catch (error) {
+      console.error("Registration failed:", error);
+      toast.error("Registration failed. Please try again.");
+    }
+  }
 
   return (
-    <div>
-      <h1>Signup</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Username"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-        />
-        <input
-          type="text"
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          placeholder="Role"
-          required
-        />
-        <button type="submit">Sign Up</button>
-      </form>
+    <div className="signup-page">
+      <Toaster />
+      <img src={"/login.jpg"} className="login-img" />
+      <div className="auth-container">
+        <h1>
+          <b>Welcome Guest,</b> Sign up for Ezapply
+        </h1>
+        <form className="signup-form" onSubmit={handleSubmit}>
+          <div className="field-container">
+            <label htmlFor="email" className="field-label">
+              Email Address
+            </label>
+            <input
+              id="signUp-email-input"
+              type="text"
+              placeholder="you@example.com"
+              name="email"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+          <div className="field-container field-container-relative">
+            <label htmlFor="password" className="field-label">
+              Password
+            </label>
+            <div className="signUpPasswordWrapper">
+              <input
+                id="signUpPassword"
+                type="password"
+                placeholder="Enter 8 characters or more"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="field-container">
+            <label htmlFor="confirmpassword" className="field-label">
+              Confirm Password
+            </label>
+            <div className="signUpConfirmPassWrapper">
+              <input
+                id="signUpConfirmPassword"
+                type="password"
+                placeholder="Same password as above"
+                name="confirmpassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
+          </div>
+          <button id="signUpSubmit" type="submit" className="submit-button">
+            Continue
+          </button>
+          <div className="switch-container">
+            <p>
+              Already have an account? <span tabIndex="0" onClick={() => router.push('/login', { scroll: false })}>Sign In</span>
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

@@ -17,17 +17,466 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  font-family: "Poppins", Arial, sans-serif;
+  background: #fff;
+  font-size: 15px;
+  line-height: 1.8;
+  font-weight: 300;
+  color: #666666;
+}
+
+.ftco-navbar-light {
+  background: transparent !important;
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 20px;
+  z-index: 3;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-nav{
+  display: flex;
+  flex-basis: auto;
+  align-items: center;
+}
+
+.container {
+  max-width: 1140px;
+}
+
+.container.nav{
+  display:flex ;
+  justify-content: space-between;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 20px;
+  position: relative;
+}
+
+.navbar-brand span{
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
+  font-size: 12px;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: #fff;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 1 !important;
+}
+
+.nav-item.active > .nav-link{
+  color: #b8b0b0;
+}
+
+.ftco-navbar-light .navbar-nav > .nav-item > .nav-link:hover {
+  color: #b8b0b0;
+}
+
+.hero-wrap .forth .text {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  max-width: 1140px;
+  padding: 0 15px;
+  margin: 0 auto;
+  transform: translateY(-50%);
+  color: #fff;
+  z-index: 1;
+}
+
+.hero-wrap .forth .text .subheading {
+  font-size: 24px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.hero-wrap .forth .text h1 {
+  font-weight: 700;
+  font-size: 60px;
+  color: #fff;
+}
+
+.hero-wrap .forth .text h2 {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 20px;
+}
+
+.hero-wrap .forth .text .btn-custom {
+  position: relative;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  z-index: 0;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.hero-wrap .forth {
+  width: 40%;
+  background: #b8b0b0;
+}
+
+.hero-wrap .forth .text .btn-custom:before {
+  position: absolute;
+  top: 50%;
+  right: -30px;
+  width: 30px;
+  height: 2px;
+  content: '';
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.hero-wrap .forth .text .btn-custom:after {
+  position: absolute;
+  top: 0;
+  right: -40px;
+  bottom: 0;
+  content: '';
+  width: 100%;
+  background: #aea5a5;
+  z-index: -1;
+}
+
+.hero-wrap .third {
+  width: 60%;
+  position: relative;
+}
+
+.nav-item.btn{
+  
+  background-color:#e9630c;
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.nav-item.btn > .nav-link:hover{
+  color: #fff !important;
+  background-color: #e9630c;
+}
+
+.login-img{
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 100vh;
+  position: fixed;
+  max-width: 30vw;
+  left: 0;
+  top: 0;
+}
+
+.signup-page{
+  width: 100vw;
+  height: 100vh;
+}
+.auth-container{
+  background-color: transparent;
+  margin-left: 32vw;
+  padding-top: 80px;
+  padding-left: 8%;
+  padding-right: 8%;
+  width: 65%;
+}
+
+.field-container input {
+  width: 100%;
+  display: block;
+  height: 60px;
+  border: 2px solid #e6e6e6;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 16px;
+  outline: none;
+  padding: 19px 15px;
+}
+
+
+.field-container textarea {
+  width: 100%;
+  display: block;
+  border: 2px solid #e6e6e6;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 16px;
+  outline: none;
+  padding: 19px 15px;
+}
+
+.auth-container h1 {
+  font-size: 36px;
+  letter-spacing: 1px;
+  font-weight: 200;
+  padding-top: 15px;
+  line-height: 40px;
+  min-width: 300px;
+  margin-bottom: 20px;
+}
+
+.auth-container h1 b {
+  font-size: 22px !important;
+  color: #333333;
+  display: block;
+  font-weight: 700;
+}
+ .auth-container form {
+  margin-top: 33px;
+}
+
+.switch-container p span {
+  font-weight: 700;
+  color: #e9630c;
+  cursor: pointer;
+}
+
+.switch-container {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.switch-container p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  color: #7e7e7e;
+}
+
+.submit-button {
+  position: relative;
+  margin-top: 45px;
+  width: 100%;
+  height: 60px;
+  border-radius: 8px;
+  background-color: #e9630c;
+  font-size: 20px;
+  font-weight: 400;
+  color: #fff;
+  border: 0;
+  outline: 0;
+}
+
+.field-container {
+  margin-top: 25px;
+  width: 100%;
+}
+
+.field-container #signUp-email-input {
+  width: 100%;
+}
+
+.field-label {
+  display: block;
+  opacity: .8;
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 5px;
+}
+
+.about-img, .user-img {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.add-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  height: 28px;
+  width: 28px;
+  background-color: #e9630c !important; 
+  padding: 4px;
+  margin-top:  20px;
+
+}
+
+
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  padding: 0px;
+}
+
+/* Style the checkbox when checked */
+input[type="checkbox"]:checked {
+  background-color: rgb(84, 232, 84); /* Change background color when checked */
+  border-color: rgb(84, 232, 84); /* Change border color when checked */
+}
+
+/* Style the checkbox label */
+.checkbox-label {
+  margin-left: 5px;
+  font-size: 10px;
+}
+
+
+#tags {
+  width: 100%;
+  margin: 50px auto;
+  margin-top: 8px;
+  overflow: hidden;
+  background-color: transparent;
+  width: 100%;
+  min-height: 60px;
+  border: 2px solid #e6e6e6;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 16px;
+  outline: none;
+  padding: 0px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#tags .ReactTags__tags {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  padding: 5px 10px;
+  min-height: 60px;
+}
+
+#tags .ReactTags__selected {
+  display: flex;
+}
+
+#tags .ReactTags__clearAll {
+  cursor: pointer;
+  padding: 10px;
+  margin: 10px;
+  background: #f88d8d;
+  color: #fff;
+  border: none;
+}
+
+#tags .ReactTags__tagInput {
+  border-radius: 2px;
+  display: inline-block;
+
+}
+
+#tags .ReactTags__tagInput input.ReactTags__tagInputField, #tags .ReactTags__tagInput input.ReactTags__tagInputField:focus {
+  height: 31px;
+  margin: 0;
+  font-size: 12px;
+  min-width: 150px;
+  padding: 0px 10px;
+}
+
+#tags .ReactTags__editInput {
+  border-radius: 1px;
+  
+}
+
+#tags .ReactTags__editTagInput {
+  display: inline-flex;
+}
+
+#tags .ReactTags__selected span.ReactTags__tag {
+ box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  background: green;
+  color: white;
+  font-size: 12px;
+  display: flex;
+  padding: 5px;
+  margin: 0 5px;
+  border-radius: 2px;
+}
+
+#tags .ReactTags__selected a.ReactTags__remove {
+  color: #aaa;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+#tags .ReactTags__suggestions {
+  position: absolute;
+}
+
+#tags .ReactTags__suggestions ul {
+  list-style-type: none;
+  box-shadow: 0.05em 0.01em 0.5em rgba(0, 0, 0, 0.2);
+  background: white;
+  width: 200px;
+}
+
+#tags .ReactTags__suggestions li {
+  border-bottom: 1px solid #ddd;
+  padding: 5px 10px;
+  margin: 0;
+}
+
+#tags .ReactTags__suggestions li mark {
+  text-decoration: underline;
+  background: none;
+  font-weight: 600;
+}
+
+#tags .ReactTags__suggestions ul li.ReactTags__activeSuggestion {
+  background: #b7cfe0;
+  cursor: pointer;
+}
+
+#tags .ReactTags__remove {
+  border: none;
+  cursor: pointer;
+  background: none;
+  color: white;
+  margin-left: 5px;
+}
+
+#tags input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+#tags input:before {
+  border: none;
+}
+
+
+@media (min-width: 992px) {
+  .navbar-expand-lg {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+
+
 }
+
+
