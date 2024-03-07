@@ -203,6 +203,18 @@ body {
   padding: 19px 15px;
 }
 
+
+.field-container textarea {
+  width: 100%;
+  display: block;
+  border: 2px solid #e6e6e6;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 16px;
+  outline: none;
+  padding: 19px 15px;
+}
+
 .auth-container h1 {
   font-size: 36px;
   letter-spacing: 1px;
@@ -279,6 +291,174 @@ body {
   background-position: center center;
 }
 
+.add-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  height: 28px;
+  width: 28px;
+  background-color: #e9630c !important; 
+  padding: 4px;
+  margin-top:  20px;
+
+}
+
+
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  padding: 0px;
+}
+
+/* Style the checkbox when checked */
+input[type="checkbox"]:checked {
+  background-color: rgb(84, 232, 84); /* Change background color when checked */
+  border-color: rgb(84, 232, 84); /* Change border color when checked */
+}
+
+/* Style the checkbox label */
+.checkbox-label {
+  margin-left: 5px;
+  font-size: 10px;
+}
+
+
+#tags {
+  width: 100%;
+  margin: 50px auto;
+  margin-top: 8px;
+  overflow: hidden;
+  background-color: transparent;
+  width: 100%;
+  min-height: 60px;
+  border: 2px solid #e6e6e6;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 16px;
+  outline: none;
+  padding: 0px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#tags .ReactTags__tags {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  padding: 5px 10px;
+  min-height: 60px;
+}
+
+#tags .ReactTags__selected {
+  display: flex;
+}
+
+#tags .ReactTags__clearAll {
+  cursor: pointer;
+  padding: 10px;
+  margin: 10px;
+  background: #f88d8d;
+  color: #fff;
+  border: none;
+}
+
+#tags .ReactTags__tagInput {
+  border-radius: 2px;
+  display: inline-block;
+
+}
+
+#tags .ReactTags__tagInput input.ReactTags__tagInputField, #tags .ReactTags__tagInput input.ReactTags__tagInputField:focus {
+  height: 31px;
+  margin: 0;
+  font-size: 12px;
+  min-width: 150px;
+  padding: 0px 10px;
+}
+
+#tags .ReactTags__editInput {
+  border-radius: 1px;
+  
+}
+
+#tags .ReactTags__editTagInput {
+  display: inline-flex;
+}
+
+#tags .ReactTags__selected span.ReactTags__tag {
+ box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  background: green;
+  color: white;
+  font-size: 12px;
+  display: flex;
+  padding: 5px;
+  margin: 0 5px;
+  border-radius: 2px;
+}
+
+#tags .ReactTags__selected a.ReactTags__remove {
+  color: #aaa;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+#tags .ReactTags__suggestions {
+  position: absolute;
+}
+
+#tags .ReactTags__suggestions ul {
+  list-style-type: none;
+  box-shadow: 0.05em 0.01em 0.5em rgba(0, 0, 0, 0.2);
+  background: white;
+  width: 200px;
+}
+
+#tags .ReactTags__suggestions li {
+  border-bottom: 1px solid #ddd;
+  padding: 5px 10px;
+  margin: 0;
+}
+
+#tags .ReactTags__suggestions li mark {
+  text-decoration: underline;
+  background: none;
+  font-weight: 600;
+}
+
+#tags .ReactTags__suggestions ul li.ReactTags__activeSuggestion {
+  background: #b7cfe0;
+  cursor: pointer;
+}
+
+#tags .ReactTags__remove {
+  border: none;
+  cursor: pointer;
+  background: none;
+  color: white;
+  margin-left: 5px;
+}
+
+#tags input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+#tags input:before {
+  border: none;
+}
+
+
 @media (min-width: 992px) {
   .navbar-expand-lg {
     -webkit-box-orient: horizontal;
@@ -295,4 +475,8 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+
 }
+
+

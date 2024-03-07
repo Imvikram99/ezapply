@@ -68,7 +68,7 @@ export default function Login() {
           </button>
           <div className="switch-container">
             <p>
-              Don't have an account? <span tabIndex="0">Sign up</span>
+              Don't have an account? <span tabIndex="0"  onClick={() => router.push('/signup', { scroll: false })}>Sign up</span>
             </p>
           </div>
         </form>

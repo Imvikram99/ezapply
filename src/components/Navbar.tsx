@@ -30,7 +30,7 @@ export default function Navbar() {
               </a>
             </li>
             <li className="nav-item btn">
-            <Link href={'/signup'} className="nav-link">
+            <Link href={'/recuiter-signup'} className="nav-link">
                 Recuiter Login
               </Link>
             </li>
