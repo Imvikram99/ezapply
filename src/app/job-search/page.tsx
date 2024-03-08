@@ -1,6 +1,7 @@
 "use client";
 
 import InputTag from "@/components/InputTag";
+import { baseUrl } from "@/utils/constants";
 import axios from "axios";
 import React, { useState } from "react";
 import { Toaster } from "react-hot-toast";
@@ -243,7 +244,7 @@ const handleSubmit = async (e: { preventDefault: () => void; }) => {
   try {
     // Sending the POST request using Axios
     const response = await axios.post(
-      'http://ec2-3-109-211-75.ap-south-1.compute.amazonaws.com:8085/api/jobseekers/register',
+    `${baseUrl}/api/jobseekers/register`,
       requestBody,
       {
         headers: {

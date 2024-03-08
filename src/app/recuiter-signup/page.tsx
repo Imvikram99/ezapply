@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { baseUrl } from "@/utils/constants";
 
 export default function RecuiterSignup() {
   const [fullName, setFullName] = useState("");
@@ -25,7 +26,7 @@ export default function RecuiterSignup() {
     try {
       // First API call to sign up the user and obtain a token
       const signUpResponse = await axios.post(
-        "http://ec2-3-109-211-75.ap-south-1.compute.amazonaws.com:8085/auth/signup",
+        `${baseUrl}/auth/signup`,
         {
           username: username,
           password: password,
@@ -42,7 +43,7 @@ export default function RecuiterSignup() {
 
       // Second API call to register the user using the obtained token
       const registerResponse = await axios.post(
-        "http://ec2-3-109-211-75.ap-south-1.compute.amazonaws.com:8085/api/recruiters/register",
+        `${baseUrl}/api/recruiters/register`,
         {
           fullName: fullName,
           phoneNumber: phoneNumber,

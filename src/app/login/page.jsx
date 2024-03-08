@@ -12,7 +12,7 @@ export default function Login() {
     e.preventDefault(); // Prevent default form submission behavior
 
     try {
-      const response = await axios.post("http://ec2-3-109-211-75.ap-south-1.compute.amazonaws.com:8085/auth/login", {
+      const response = await axios.post(`${baseUrl}/auth/login`, {
         username: username,
         password: password,
       });

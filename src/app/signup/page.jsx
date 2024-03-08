@@ -24,7 +24,7 @@ export default function Signup() {
 
     try {
       const response = await axios.post(
-        "http://ec2-3-109-211-75.ap-south-1.compute.amazonaws.com:8085/auth/signup",
+        "/auth/signup",
         {
           username: username,
           password: password,
