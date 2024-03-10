@@ -88,10 +88,10 @@ const JobSeekerRegistration = () => {
   const [industry, setIndustry]: any = useState([]);
   const [company, setCompany]: any = useState([]);
 
-  const handleChange = (e : any) => {
+  const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
-    const newValue = type === 'checkbox' ? checked : value;
-  
+    const newValue = type === "checkbox" ? checked : value;
+
     setFormData((prevState) => ({
       ...prevState,
       [name]: newValue,
@@ -106,13 +106,11 @@ const JobSeekerRegistration = () => {
     setFormData((prevState) => {
       const workExperience = [...prevState.workExperience];
 
-      console.log(workExperience)
+      console.log(workExperience);
 
-      const toChange : any = (workExperience[index])
+      const toChange: any = workExperience[index];
 
-
-      toChange[name] =
-        value;
+      toChange[name] = value;
       return { ...prevState, workExperience };
     });
   };
@@ -130,6 +128,13 @@ const JobSeekerRegistration = () => {
           description: "",
         },
       ],
+    }));
+  };
+
+  const handleRemoveWorkExperience = () => {
+    setFormData((prevState) => ({
+      ...prevState,
+      workExperience: prevState.workExperience.slice(0, -1),
     }));
   };
 
@@ -160,6 +165,13 @@ const JobSeekerRegistration = () => {
     }));
   };
 
+  const handleRemoveEducationHistory = () => {
+    setFormData((prevState) => ({
+      ...prevState,
+      educationHistory: prevState.educationHistory.slice(0, -1),
+    }));
+  };
+
   const handlePersonalProjectsChange = (
     e: { target: { name: any; value: any } },
     index: string | number
@@ -171,6 +183,14 @@ const JobSeekerRegistration = () => {
       return { ...prevState, personalProjects: updatedPersonalProjects };
     });
   };
+
+  const handleRemovePersonalProject = () => {
+    setFormData((prevState) => ({
+      ...prevState,
+      personalProjects: prevState.personalProjects.slice(0, -1),
+    }));
+  };
+  
 
   const handleAddPersonalProject = () => {
     setFormData((prevState) => ({
@@ -187,88 +207,81 @@ const JobSeekerRegistration = () => {
     }));
   };
 
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
 
+    formData.skills = skills.map((x: any) => x.text);
+    formData.certifications = certifications.map((x: any) => x.text);
+    formData.languages = languages.map((x: any) => x.text);
+    formData.preferredLocations = locations.map((x: any) => x.text);
+    formData.industryPreferences = industry.map((x: any) => x.text);
+    formData.companyPreferences = company.map((x: any) => x.text);
 
+    // Constructing the request body
+    const requestBody = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      profileId: formData.profileId,
+      email: formData.email,
+      phoneNumber: formData.phoneNumber,
+      resumeLink: formData.resumeLink,
+      coverLetterLink: formData.coverLetterLink,
+      skills: formData.skills,
+      educationHistory: formData.educationHistory,
+      workExperience: formData.workExperience,
+      certifications: formData.certifications,
+      personalProjects: formData.personalProjects,
+      professionalSummary: formData.professionalSummary,
+      desiredJobTitle: formData.desiredJobTitle,
+      languages: formData.languages,
+      linkedInProfile: formData.linkedInProfile,
+      portfolioLink: formData.portfolioLink,
+      githubLink: formData.githubLink,
+      twitterHandle: formData.twitterHandle,
+      availability: formData.availability,
+      preferredLocations: formData.preferredLocations,
+      willingToRelocate: formData.willingToRelocate,
+      seekingFullTime: formData.seekingFullTime,
+      seekingPartTime: formData.seekingPartTime,
+      seekingContract: formData.seekingContract,
+      industryPreferences: formData.industryPreferences,
+      companyPreferences: formData.companyPreferences,
+      currentCtc: formData.currentCtc,
+      expectedCtc: formData.expectedCtc,
+      currentAddress: formData.currentAddress,
+      permanentAddress: formData.permanentAddress,
+      isServingNoticePeriod: formData.isServingNoticePeriod,
+      dateOfJoiningAtNewOrg: formData.dateOfJoiningAtNewOrg,
+      officialNoticePeriod: formData.officialNoticePeriod,
+      isNoticePeriodNegotiable: formData.isNoticePeriodNegotiable,
+      earliestYouCanJoin: formData.earliestYouCanJoin,
+    };
 
-  
-const handleSubmit = async (e: { preventDefault: () => void; }) => {
-  e.preventDefault();
-
-  formData.skills = skills.map((x : any) => x.text);
-  formData.certifications = certifications.map((x : any) => x.text);
-  formData.languages = languages.map((x : any) => x.text);
-  formData.preferredLocations = locations.map((x : any) => x.text);
-  formData.industryPreferences = industry.map((x : any) => x.text);
-  formData.companyPreferences = company.map((x : any) => x.text);
-
-  // Constructing the request body
-  const requestBody = {
-    firstName: formData.firstName,
-    lastName: formData.lastName,
-    profileId: formData.profileId,
-    email: formData.email,
-    phoneNumber: formData.phoneNumber,
-    resumeLink: formData.resumeLink,
-    coverLetterLink: formData.coverLetterLink,
-    skills: formData.skills,
-    educationHistory: formData.educationHistory,
-    workExperience: formData.workExperience,
-    certifications: formData.certifications,
-    personalProjects: formData.personalProjects,
-    professionalSummary: formData.professionalSummary,
-    desiredJobTitle: formData.desiredJobTitle,
-    languages: formData.languages,
-    linkedInProfile: formData.linkedInProfile,
-    portfolioLink: formData.portfolioLink,
-    githubLink: formData.githubLink,
-    twitterHandle: formData.twitterHandle,
-    availability: formData.availability,
-    preferredLocations: formData.preferredLocations,
-    willingToRelocate: formData.willingToRelocate,
-    seekingFullTime: formData.seekingFullTime,
-    seekingPartTime: formData.seekingPartTime,
-    seekingContract: formData.seekingContract,
-    industryPreferences: formData.industryPreferences,
-    companyPreferences: formData.companyPreferences,
-    currentCtc: formData.currentCtc,
-    expectedCtc: formData.expectedCtc,
-    currentAddress: formData.currentAddress,
-    permanentAddress: formData.permanentAddress,
-    isServingNoticePeriod: formData.isServingNoticePeriod,
-    dateOfJoiningAtNewOrg: formData.dateOfJoiningAtNewOrg,
-    officialNoticePeriod: formData.officialNoticePeriod,
-    isNoticePeriodNegotiable: formData.isNoticePeriodNegotiable,
-    earliestYouCanJoin: formData.earliestYouCanJoin,
+    try {
+      // Sending the POST request using Axios
+      const response = await axios.post(
+        `${baseUrl}/api/jobseekers/register`,
+        requestBody,
+        {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWZpejQwMyIsInJvbGVzIjpbIlJPTEVfSk9CU0VFS0VSIl0sImlhdCI6MTcwOTgyMjE3MSwiZXhwIjoxNzA5OTA4NTcxfQ.w-ZAnrJJoT7_gS8FUSTdsyiSZCVc5z-YLKO1iZwd8JY",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data); // Log the response data
+    } catch (error) {
+      console.error("Error:", error); // Log any errors that occur during the request
+    }
   };
-
-  try {
-    // Sending the POST request using Axios
-    const response = await axios.post(
-    `${baseUrl}/api/jobseekers/register`,
-      requestBody,
-      {
-        headers: {
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWZpejQwMyIsInJvbGVzIjpbIlJPTEVfSk9CU0VFS0VSIl0sImlhdCI6MTcwOTgyMjE3MSwiZXhwIjoxNzA5OTA4NTcxfQ.w-ZAnrJJoT7_gS8FUSTdsyiSZCVc5z-YLKO1iZwd8JY',
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-    console.log(response.data); // Log the response data
-  } catch (error) {
-    console.error('Error:', error); // Log any errors that occur during the request
-  }
-};
 
   return (
     <div className="signup-page">
       <Toaster />
-      <img src={"/login.jpg"} className="login-img" />
-      <div
-        className="auth-container"
-        style={{ maxHeight: "100vh", overflow: "sroll" }}
-      >
-        <h1>
-          <b>Welcome Guest,</b> Register as a Job Seeker
+      <div className="auth-container" style={authContainer}>
+        <h1 style={{ textAlign: "center", fontWeight: "bolder" }}>
+          Register as a Job Seeker
         </h1>
         <form className="signup-form" onSubmit={handleSubmit}>
           {/* Personal Information */}
@@ -403,13 +416,24 @@ const handleSubmit = async (e: { preventDefault: () => void; }) => {
             </div>
           ))}
 
-          <button
-            className="add-btn"
-            type="button"
-            onClick={handleAddWorkExperience}
-          >
-            <PlusIcon />
-          </button>
+          <div style={{ display: "flex", gap: 10 }}>
+            <button
+              className="add-btn"
+              type="button"
+              onClick={handleAddWorkExperience}
+            >
+              <PlusIcon />
+            </button>
+            {formData.workExperience.length > 1 && (
+              <button
+                className="add-btn"
+                type="button"
+                onClick={handleRemoveWorkExperience}
+              >
+                <MinusIcon />
+              </button>
+            )}
+          </div>
 
           {formData.educationHistory.map((edu, index) => (
             <div key={index}>
@@ -466,14 +490,24 @@ const handleSubmit = async (e: { preventDefault: () => void; }) => {
               </div>
             </div>
           ))}
-
-          <button
-            className="add-btn"
-            type="button"
-            onClick={handleAddEducationHistory}
-          >
-            <PlusIcon />
-          </button>
+          <div style={{ display: "flex", gap: 10 }}>
+            <button
+              className="add-btn"
+              type="button"
+              onClick={handleAddEducationHistory}
+            >
+              <PlusIcon />
+            </button>
+            {formData.educationHistory.length > 1 && (
+              <button
+                className="add-btn"
+                type="button"
+                onClick={handleRemoveEducationHistory}
+              >
+                <MinusIcon />
+              </button>
+            )}
+          </div>
 
           {formData.personalProjects.map((project, index) => (
             <div key={index}>
@@ -530,14 +564,26 @@ const handleSubmit = async (e: { preventDefault: () => void; }) => {
             </div>
           ))}
 
-          <button
-            className="add-btn"
-            type="button"
-            onClick={handleAddPersonalProject}
-          >
-            <PlusIcon />
-          </button>
 
+<div style={{ display: "flex", gap: 10 }}>
+<button
+  className="add-btn"
+  type="button"
+  onClick={handleAddPersonalProject}
+>
+  <PlusIcon />
+</button>
+{formData.personalProjects.length > 1 && (
+  <button
+    className="add-btn"
+    type="button"
+    onClick={handleRemovePersonalProject}
+  >
+    <MinusIcon />
+  </button>
+)}
+
+</div>
           <InputTag
             tags={certifications}
             setTags={setCertifications}
@@ -858,5 +904,31 @@ const PlusIcon = () => (
       fill-rule="evenodd"
       d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z"
     ></path>
+  </svg>
+);
+
+const authContainer = {
+  marginLeft: 0,
+  margin: "auto",
+  boxShadow: "0 2px 10px 0 rgba(0, 0, 0, 0.1)",
+  marginTop: 30,
+  paddingBottom: 20,
+  borderRadius: 12,
+  paddingTop: 30,
+  background: "#6991F7",
+  color: "#fff",
+};
+
+const MinusIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    x="0px"
+    y="0px"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="white"
+  >
+    <path fill-rule="evenodd" d="M 2 11 L 22 11 L 22 13 L 2 13 Z"></path>
   </svg>
 );

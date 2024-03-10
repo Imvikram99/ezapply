@@ -23,6 +23,7 @@ body {
   line-height: 1.8;
   font-weight: 300;
   color: #666666;
+  background-color: #F6F7FC;
 }
 
 .ftco-navbar-light {
@@ -127,6 +128,24 @@ body {
   background: #b8b0b0;
 }
 
+.on-hov{
+  transition-property: width;
+  transition-duration: 2s;
+  transition-timing-function: linear;
+  transition-delay: 1s;
+}
+
+.on-hov:hover:after {
+  position: absolute;
+  top: 0;
+  right: -40px !important;
+  bottom: 0;
+  content: '';
+  width: 140% !important;
+  background: #e9630c !important;
+  z-index: -1;
+}
+
 .hero-wrap .forth .text .btn-custom:before {
   position: absolute;
   top: 50%;
@@ -173,7 +192,7 @@ body {
   background-position: center center;
   height: 100vh;
   position: fixed;
-  max-width: 30vw;
+  max-width: 38vw;
   left: 0;
   top: 0;
 }
@@ -184,7 +203,7 @@ body {
 }
 .auth-container{
   background-color: transparent;
-  margin-left: 32vw;
+  margin-left: 35vw;
   padding-top: 80px;
   padding-left: 8%;
   padding-right: 8%;
@@ -195,7 +214,8 @@ body {
   width: 100%;
   display: block;
   height: 60px;
-  border: 2px solid #e6e6e6;
+  border: 0px solid #e6e6e6;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   background-color: #fff;
   font-size: 16px;
@@ -207,7 +227,8 @@ body {
 .field-container textarea {
   width: 100%;
   display: block;
-  border: 2px solid #e6e6e6;
+  border: 0px solid #e6e6e6;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   background-color: #fff;
   font-size: 16px;
@@ -262,6 +283,7 @@ body {
   background-color: #e9630c;
   font-size: 20px;
   font-weight: 400;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   color: #fff;
   border: 0;
   outline: 0;
@@ -295,11 +317,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   height: 28px;
   width: 28px;
-  background-color: #e9630c !important; 
+  background-color: #ffa365 !important; 
   padding: 4px;
   margin-top:  20px;
 
@@ -478,5 +500,7 @@ input[type="checkbox"]:checked {
 
 
 }
+
+
 
 
