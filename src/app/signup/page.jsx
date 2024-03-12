@@ -43,7 +43,7 @@ export default function Signup() {
   return (
     <div className="signup-page">
       <Toaster />
-      <img src={"/login.jpg"} className="login-img" />
+      <img src={"/sign.jpg"} className="login-img" />
       <div className="auth-container">
         <h1>
           <b>Welcome Guest,</b> Sign up for Ezapply

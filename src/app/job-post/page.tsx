@@ -82,17 +82,26 @@ export default function PostJob() {
     }
   }
 
+  const handleRemoveStage = (indexToRemove: number) => {
+    setRecruitmentStages((prevStages) => {
+      return prevStages.filter((stage, index) => index !== indexToRemove);
+    });
+  };
+
   return (
     <div className="post-job-page">
       <Toaster />
-      <img src={"/login.jpg"} className="login-img" />
-      <div className="auth-container">
-        <h1>
-          <b>Post a Job</b>
+      <div className="auth-container" style={authContainer}>
+        <h1 style={{ textAlign: "center", fontWeight: "bolder" }}>
+          Post a Job
         </h1>
         <form className="post-job-form" onSubmit={handleSubmit}>
           <div className="field-container">
-            <label htmlFor="title" className="field-label">
+            <label
+              htmlFor="title"
+              className="field-label"
+              style={{ color: "#fff", fontWeight: "400" }}
+            >
               Title
             </label>
             <input
@@ -104,7 +113,11 @@ export default function PostJob() {
             />
           </div>
           <div className="field-container">
-            <label htmlFor="description" className="field-label">
+            <label
+              htmlFor="description"
+              className="field-label"
+              style={{ color: "#fff", fontWeight: "400" }}
+            >
               Description
             </label>
             <textarea
@@ -115,7 +128,11 @@ export default function PostJob() {
             />
           </div>
           <div className="field-container">
-            <label htmlFor="postingDate" className="field-label">
+            <label
+              htmlFor="postingDate"
+              className="field-label"
+              style={{ color: "#fff", fontWeight: "400" }}
+            >
               Posting Date
             </label>
             <input
@@ -126,7 +143,11 @@ export default function PostJob() {
             />
           </div>
           <div className="field-container">
-            <label htmlFor="closingDate" className="field-label">
+            <label
+              htmlFor="closingDate"
+              className="field-label"
+              style={{ color: "#fff", fontWeight: "400" }}
+            >
               Closing Date
             </label>
             <input
@@ -137,7 +158,11 @@ export default function PostJob() {
             />
           </div>
           <div className="field-container">
-            <label htmlFor="jobPosition" className="field-label">
+            <label
+              htmlFor="jobPosition"
+              className="field-label"
+              style={{ color: "#fff", fontWeight: "400" }}
+            >
               Job Position
             </label>
             <input
@@ -149,7 +174,11 @@ export default function PostJob() {
             />
           </div>
           <div className="field-container">
-            <label htmlFor="recruitingManager" className="field-label">
+            <label
+              htmlFor="recruitingManager"
+              className="field-label"
+              style={{ color: "#fff", fontWeight: "400" }}
+            >
               Recruiting Manager
             </label>
             <input
@@ -161,7 +190,11 @@ export default function PostJob() {
             />
           </div>
           <div className="field-container">
-            <label htmlFor="vacancy" className="field-label">
+            <label
+              htmlFor="vacancy"
+              className="field-label"
+              style={{ color: "#fff", fontWeight: "400" }}
+            >
               Vacancy
             </label>
             <input
@@ -173,7 +206,11 @@ export default function PostJob() {
             />
           </div>
           <div className="field-container">
-            <label htmlFor="requiredSkills" className="field-label">
+            <label
+              htmlFor="requiredSkills"
+              className="field-label"
+              style={{ color: "#fff", fontWeight: "400" }}
+            >
               Required Skills (comma-separated)
             </label>
             <input
@@ -185,7 +222,11 @@ export default function PostJob() {
             />
           </div>
           <div className="field-container">
-            <label htmlFor="recruitmentStages" className="field-label">
+            <label
+              htmlFor="recruitmentStages"
+              className="field-label"
+              style={{ color: "#fff", fontWeight: "400" }}
+            >
               Recruitment Stages (JSON)
             </label>
             <div>
@@ -199,6 +240,7 @@ export default function PostJob() {
                       handleStageChange(index, "stageName", e.target.value)
                     }
                   />
+                  <br />
                   <input
                     type="text"
                     placeholder="Description"
@@ -207,13 +249,40 @@ export default function PostJob() {
                       handleStageChange(index, "description", e.target.value)
                     }
                   />
-                  <button onClick={handleAddStage}>Add Stage</button>
+                  <br />
                 </div>
               ))}
+              <div style={{ display: "flex", gap: 10 }}>
+                <button
+                  className="add-btn"
+                  type="button"
+                  style={{ marginTop: 10, marginBottom: 10 }}
+                  onClick={handleAddStage}
+                >
+                  <PlusIcon />
+                </button>
+                {recruitmentStages.length > 1 && (
+                  <button
+                    className="add-btn"
+                    type="button"
+                    style={{ marginTop: 10, marginBottom: 10 }}
+                    onClick={handleRemoveStage.bind(
+                      null,
+                      recruitmentStages.length - 1
+                    )}
+                  >
+                    <MinusIcon />
+                  </button>
+                )}
+              </div>
             </div>
           </div>
           <div className="field-container">
-            <label htmlFor="experienceRequired" className="field-label">
+            <label
+              htmlFor="experienceRequired"
+              className="field-label"
+              style={{ color: "#fff", fontWeight: "400" }}
+            >
               Experience Required
             </label>
             <input
@@ -225,7 +294,11 @@ export default function PostJob() {
             />
           </div>
           <div className="field-container">
-            <label htmlFor="isOpen" className="field-label">
+            <label
+              htmlFor="isOpen"
+              className="field-label"
+              style={{ color: "#fff", fontWeight: "400" }}
+            >
               Is Open
             </label>
             <select
@@ -245,3 +318,47 @@ export default function PostJob() {
     </div>
   );
 }
+
+const authContainer = {
+  marginLeft: 0,
+  margin: "auto",
+  boxShadow: "0 2px 10px 0 rgba(0, 0, 0, 0.1)",
+  marginTop: 30,
+  paddingBottom: 20,
+  borderRadius: 12,
+  paddingTop: 30,
+
+  background: "#6991F7",
+  color: "#fff",
+};
+
+const PlusIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    x="0px"
+    y="0px"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="white"
+  >
+    <path
+      fill-rule="evenodd"
+      d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z"
+    ></path>
+  </svg>
+);
+
+const MinusIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    x="0px"
+    y="0px"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="white"
+  >
+    <path fill-rule="evenodd" d="M 2 11 L 22 11 L 22 13 L 2 13 Z"></path>
+  </svg>
+);

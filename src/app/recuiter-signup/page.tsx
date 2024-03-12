@@ -75,7 +75,7 @@ export default function RecuiterSignup() {
   return (
     <div className="signup-page">
       <Toaster />
-      <img src={"/login.jpg"} className="login-img" />
+      <img src={"/rec.jpg"} className="login-img" />
       <div className="auth-container">
         <h1>
           <b>Welcome Guest,</b> Sign up as Recruiter
