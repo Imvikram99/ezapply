@@ -34,12 +34,15 @@ export default function RecuiterSignup() {
         }
       );
 
-      console.log({signUpResponse})
-
-      // Extracting the token from the response
-      const token = signUpResponse.data.token;
-
-      console.log({token})
+      if(!signUpResponse.data.success){
+        toast.error("Recruiter Sign up failed. Please try again.");
+      }
+    
+        const loginResponse = await axios.post(`${baseUrl}/auth/login`, {
+          username: username,
+          password: password,
+        });
+ 
 
       // Second API call to register the user using the obtained token
       const registerResponse = await axios.post(
@@ -56,7 +59,7 @@ export default function RecuiterSignup() {
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${loginResponse.data.token}`,
             "Content-Type": "application/json"
           }
         }
@@ -208,7 +211,6 @@ export default function RecuiterSignup() {
             <p>
               Already have an account?{" "}
               <span
-                tabIndex="0"
                 onClick={() => router.push("/login", { scroll: false })}
               >
                 Sign In

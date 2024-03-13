@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { baseUrl } from "@/utils/constants";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
@@ -24,7 +25,7 @@ export default function Signup() {
 
     try {
       const response = await axios.post(
-        "/auth/signup",
+        `${baseUrl}/auth/signup`,
         {
           username: username,
           password: password,

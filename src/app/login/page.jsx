@@ -3,6 +3,7 @@
 import { useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { baseUrl } from "@/utils/constants";
 
 export default function Login() {
   const [username, setUsername] = useState("");
