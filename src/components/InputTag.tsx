@@ -19,6 +19,7 @@ const InputTag = ({tags, setTags, text} : any) => {
 
   // Method to Add tag into Array
   const handleAddition = (tag: any) => {
+    console.log({tags})
     setTags([...tags, tag]);
   };
   return (

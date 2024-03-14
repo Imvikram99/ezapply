@@ -223,6 +223,55 @@ body {
   padding: 19px 15px;
 }
 
+.field-container input[type="radio"] {
+  width: 18px;
+  display: block;
+  height: 22px;
+  background-color: #fff;
+  font-size: 16px;
+  outline: none;
+  padding: 10px;
+  box-shadow: none;
+
+}
+
+.nav-button{
+  position: relative;
+  margin-top: 45px;
+  width: 80px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: #fff;
+  font-weight: 400;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  color: #e9630c;
+  font-size: 12px;
+  border: 0;
+  outline: 0;
+  text-transform: uppercase;
+}
+
+
+.submit-button.job {
+  position: relative;
+  margin-top: 45px;
+  width: 80px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: #e9630c;
+  font-size: 12px;
+  font-weight: 400;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  color: #fff;
+  border: 0;
+  outline: 0;
+  text-transform: uppercase;
+}
+
+
+
+
+
 
 .field-container textarea {
   width: 100%;
@@ -405,6 +454,7 @@ input[type="checkbox"]:checked {
   margin: 0;
   font-size: 12px;
   min-width: 150px;
+  color: #000 !important;
   padding: 0px 10px;
 }
 
@@ -504,3 +554,6 @@ input[type="checkbox"]:checked {
 
 
 
+.field-container input {
+  color: #333333 !important;
+}

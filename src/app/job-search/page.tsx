@@ -58,20 +58,6 @@ const initialFormData = {
   companyPreferences: [""],
   currentCtc: "",
   expectedCtc: "",
-  currentAddress: {
-    street: "",
-    city: "",
-    state: "",
-    postalCode: "",
-    country: "",
-  },
-  permanentAddress: {
-    street: "",
-    city: "",
-    state: "",
-    postalCode: "",
-    country: "",
-  },
   isServingNoticePeriod: false,
   dateOfJoiningAtNewOrg: "",
   officialNoticePeriod: "",
@@ -87,6 +73,17 @@ const JobSeekerRegistration = () => {
   const [locations, setLocations]: any = useState([]);
   const [industry, setIndustry]: any = useState([]);
   const [company, setCompany]: any = useState([]);
+  const [currentStreet, setCurrentStreet] = useState("123 Tech Lane");
+  const [currentCity, setCurrentCity] = useState("Techville");
+  const [currentState, setCurrentState] = useState("TechState");
+  const [currentPostalCode, setCurrentPostalCode] = useState("12345");
+  const [currentCountry, setCurrentCountry] = useState("Techland");
+  const [permanentStreet, setPermanentStreet] = useState("456 Home Road");
+  const [permanentCity, setPermanentCity] = useState("HomeTown");
+  const [permanentState, setPermanentState] = useState("HomeState");
+  const [permanentPostalCode, setPermanentPostalCode] = useState("67890");
+  const [permanentCountry, setPermanentCountry] = useState("Homeland");
+  const [currentStep, setCurrentStep] = useState(1);
 
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
@@ -190,7 +187,6 @@ const JobSeekerRegistration = () => {
       personalProjects: prevState.personalProjects.slice(0, -1),
     }));
   };
-  
 
   const handleAddPersonalProject = () => {
     setFormData((prevState) => ({
@@ -205,6 +201,10 @@ const JobSeekerRegistration = () => {
         },
       ],
     }));
+  };
+
+  const handleInputChange = (e: any, setter: any) => {
+    setter(e.target.value);
   };
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
@@ -248,8 +248,20 @@ const JobSeekerRegistration = () => {
       companyPreferences: formData.companyPreferences,
       currentCtc: formData.currentCtc,
       expectedCtc: formData.expectedCtc,
-      currentAddress: formData.currentAddress,
-      permanentAddress: formData.permanentAddress,
+      currentAddress: {
+        street: currentStreet,
+        city: currentCity,
+        state: currentState,
+        postalCode: currentPostalCode,
+        country: currentCountry,
+      },
+      permanentAddress: {
+        street: permanentStreet,
+        city: permanentCity,
+        state: permanentState,
+        postalCode: permanentPostalCode,
+        country: permanentCountry,
+      },
       isServingNoticePeriod: formData.isServingNoticePeriod,
       dateOfJoiningAtNewOrg: formData.dateOfJoiningAtNewOrg,
       officialNoticePeriod: formData.officialNoticePeriod,
@@ -265,7 +277,7 @@ const JobSeekerRegistration = () => {
         {
           headers: {
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWZpejQwMyIsInJvbGVzIjpbIlJPTEVfSk9CU0VFS0VSIl0sImlhdCI6MTcwOTgyMjE3MSwiZXhwIjoxNzA5OTA4NTcxfQ.w-ZAnrJJoT7_gS8FUSTdsyiSZCVc5z-YLKO1iZwd8JY",
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWZpemJ1dHQwMjJAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9KT0JTRUVLRVIiXSwiaWF0IjoxNzEwMzY3NDg4LCJleHAiOjE3MTA0NTM4ODh9.mP39X7cZ-9j5tlEZEr7TwBmBb-aXisjKV4t0_uNe5uU",
             "Content-Type": "application/json",
           },
         }
@@ -276,519 +288,131 @@ const JobSeekerRegistration = () => {
     }
   };
 
+  const handleNext = () => {
+    setCurrentStep(currentStep + 1);
+  };
+
+  const handlePrev = () => {
+    setCurrentStep(currentStep - 1);
+  };
+
   return (
     <div className="signup-page">
       <Toaster />
       <div className="auth-container" style={authContainer}>
-        <h1 style={{ textAlign: "center", fontWeight: "bolder" }}>
+        <h1
+          style={{
+            textAlign: "center",
+            fontWeight: "bolder",
+            textTransform: "uppercase",
+          }}
+        >
           Register as a Job Seeker
         </h1>
         <form className="signup-form" onSubmit={handleSubmit}>
           {/* Personal Information */}
-          <div style={{ display: "flex", gap: 20 }}>
-            <div className="field-container">
-              <label htmlFor="firstName">First Name:</label>
-              <input
-                type="text"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="field-container">
-              <label htmlFor="lastName">Last Name:</label>
-              <input
-                type="text"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <div className="field-container">
-            <label htmlFor="profileId">Profile ID:</label>
-            <input
-              type="text"
-              name="profileId"
-              value={formData.profileId}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="field-container">
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="field-container">
-            <label htmlFor="phoneNumber">Phone Number:</label>
-            <input
-              type="tel"
-              name="phoneNumber"
-              value={formData.phoneNumber}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="field-container">
-            <label htmlFor="resumeLink">Resume Link:</label>
-            <input
-              type="text"
-              name="resumeLink"
-              value={formData.resumeLink}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="field-container">
-            <label htmlFor="coverLetterLink">Cover Letter Link:</label>
-            <input
-              type="text"
-              name="coverLetterLink"
-              value={formData.coverLetterLink}
-              onChange={handleChange}
-            />
-          </div>
-          {/* Add similar input fields for other personal information */}
+          {currentStep === 1 && (
+            <Step1 formData={formData} handleChange={handleChange} skills={skills} setSkills={setSkills}/>
+          )}
 
-          <InputTag tags={skills} setTags={setSkills} text={"Skills"} />
+          {currentStep === 2 && (
+            <Step2
+              currentStreet={currentStreet}
+              setCurrentStreet={setCurrentStreet}
+              currentCity={currentCity}
+              setCurrentCity={setCurrentCity}
+              currentState={currentState}
+              setCurrentState={setCurrentState}
+              currentPostalCode={currentPostalCode}
+              setCurrentPostalCode={setCurrentPostalCode}
+              currentCountry={currentCountry}
+              setCurrentCountry={setCurrentCountry}
+              permanentStreet={permanentStreet}
+              setPermanentStreet={setPermanentStreet}
+              permanentCity={permanentCity}
+              setPermanentCity={setPermanentCity}
+              permanentState={permanentState}
+              setPermanentState={setPermanentState}
+              permanentPostalCode={permanentPostalCode}
+              setPermanentPostalCode={setPermanentPostalCode}
+              permanentCountry={permanentCountry}
+              setPermanentCountry={setPermanentCountry}
+              handleInputChange={handleInputChange}
+            />
+          )}
+          {currentStep === 3 && (
+            <Step3
+              formData={formData}
+              handleWorkExperienceChange={handleWorkExperienceChange}
+              handleRemoveWorkExperience={handleRemoveWorkExperience}
+              handleAddWorkExperience={handleAddWorkExperience}
+            />
+          )}
+          {currentStep === 4 && (
+            <Step4
+              formData={formData}
+              handleEducationHistoryChange={handleEducationHistoryChange}
+              handleRemoveEducationHistory={handleRemoveEducationHistory}
+              handleAddEducationHistory={handleAddEducationHistory}
+            />
+          )}
+          {currentStep === 5 && (
+            <Step5
+              formData={formData}
+              handlePersonalProjectsChange={handlePersonalProjectsChange}
+              handleRemovePersonalProject={handleRemovePersonalProject}
+              handleAddPersonalProject={handleAddPersonalProject}
+            />
+          )}
 
-          {/* Work Experience */}
+          {currentStep === 6 && (
+            <Step6
+              formData={formData}
+              certifications={certifications}
+              setCertifications={setCertifications}
+              handleChange={handleChange}
+              languages={languages}
+              setLanguages={setLanguages}
+              locations={locations}
+              setLocations={setLocations}
+            />
+          )}
 
-          {formData.workExperience.map((exp, index) => (
-            <div key={index}>
-              <h2
-                style={{
-                  width: "100%",
-                  textAlign: "center",
-                  fontWeight: 600,
-                  paddingTop: 40,
-                  fontSize: 22,
-                }}
-              >
-                Work Experience {index + 1}
-              </h2>
-              <div className="field-container">
-                <label htmlFor={`companyName${index}`}>Company Name:</label>
-                <input
-                  type="text"
-                  name={`companyName`}
-                  value={exp.companyName}
-                  onChange={(e) => handleWorkExperienceChange(e, index)}
-                />
-              </div>
-              <div className="field-container">
-                <label htmlFor={`jobTitle${index}`}>Job Title:</label>
-                <input
-                  type="text"
-                  name={`jobTitle`}
-                  value={exp.jobTitle}
-                  onChange={(e) => handleWorkExperienceChange(e, index)}
-                />
-              </div>
-              <div className="field-container">
-                <label htmlFor={`startDate${index}`}>Start Date:</label>
-                <input
-                  type="text"
-                  name={`startDate`}
-                  value={exp.startDate}
-                  onChange={(e) => handleWorkExperienceChange(e, index)}
-                />
-              </div>
-              <div className="field-container">
-                <label htmlFor={`endDate${index}`}>End Date:</label>
-                <input
-                  type="text"
-                  name={`endDate`}
-                  value={exp.endDate}
-                  onChange={(e) => handleWorkExperienceChange(e, index)}
-                />
-              </div>
-              <div className="field-container">
-                <label htmlFor={`description${index}`}>Description:</label>
-                <textarea
-                  name={`description`}
-                  value={exp.description}
-                  onChange={(e: any) => handleWorkExperienceChange(e, index)}
-                />
-              </div>
-            </div>
-          ))}
-
-          <div style={{ display: "flex", gap: 10 }}>
+          {currentStep === 7 && (
+            <Step7
+              formData={formData}
+              handleChange={handleChange}
+              industry={industry}
+              setIndustry={setIndustry}
+              company={company}
+              setCompany={setCompany}
+            />
+          )}
+          {/* Navigation buttons */}
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
             <button
-              className="add-btn"
               type="button"
-              onClick={handleAddWorkExperience}
+              onClick={handlePrev}
+              className="nav-button"
+              style={{
+                opacity: currentStep > 1 ? "1" : "0",
+                pointerEvents: currentStep > 1 ? "all" : "none",
+              }}
             >
-              <PlusIcon />
+              Previous
             </button>
-            {formData.workExperience.length > 1 && (
-              <button
-                className="add-btn"
-                type="button"
-                onClick={handleRemoveWorkExperience}
-              >
-                <MinusIcon />
+
+            {currentStep < 7 && (
+              <button type="button" onClick={handleNext} className="nav-button">
+                Next
+              </button>
+            )}
+            {currentStep === 7 && (
+              <button type="submit" className="submit-button job">
+                Submit
               </button>
             )}
           </div>
-
-          {formData.educationHistory.map((edu, index) => (
-            <div key={index}>
-              <h2
-                style={{
-                  width: "100%",
-                  textAlign: "center",
-                  fontWeight: 600,
-                  paddingTop: 40,
-                  fontSize: 22,
-                }}
-              >
-                Education History {index + 1}
-              </h2>
-              <div className="field-container">
-                <label htmlFor={`degree${index}`}>Degree:</label>
-                <input
-                  type="text"
-                  name={`degree`}
-                  value={edu.degree}
-                  onChange={(e) => handleEducationHistoryChange(e, index)}
-                />
-              </div>
-              <div className="field-container">
-                <label htmlFor={`fieldOfStudy${index}`}>Field of Study:</label>
-                <input
-                  type="text"
-                  name={`fieldOfStudy`}
-                  value={edu.fieldOfStudy}
-                  onChange={(e) => handleEducationHistoryChange(e, index)}
-                />
-              </div>
-              <div className="field-container">
-                <label htmlFor={`institutionName${index}`}>
-                  Institution Name:
-                </label>
-                <input
-                  type="text"
-                  name={`institutionName`}
-                  value={edu.institutionName}
-                  onChange={(e) => handleEducationHistoryChange(e, index)}
-                />
-              </div>
-              <div className="field-container">
-                <label htmlFor={`graduationYear${index}`}>
-                  Graduation Year:
-                </label>
-                <input
-                  type="text"
-                  name={`graduationYear`}
-                  value={edu.graduationYear}
-                  onChange={(e) => handleEducationHistoryChange(e, index)}
-                />
-              </div>
-            </div>
-          ))}
-          <div style={{ display: "flex", gap: 10 }}>
-            <button
-              className="add-btn"
-              type="button"
-              onClick={handleAddEducationHistory}
-            >
-              <PlusIcon />
-            </button>
-            {formData.educationHistory.length > 1 && (
-              <button
-                className="add-btn"
-                type="button"
-                onClick={handleRemoveEducationHistory}
-              >
-                <MinusIcon />
-              </button>
-            )}
-          </div>
-
-          {formData.personalProjects.map((project, index) => (
-            <div key={index}>
-              <h2
-                style={{
-                  width: "100%",
-                  textAlign: "center",
-                  fontWeight: 600,
-                  paddingTop: 40,
-                  fontSize: 22,
-                }}
-              >
-                Personal Project {index + 1}
-              </h2>
-              <div className="field-container">
-                <label htmlFor={`projectName${index}`}>Project Name:</label>
-                <input
-                  type="text"
-                  name={`projectName`}
-                  value={project.projectName}
-                  onChange={(e) => handlePersonalProjectsChange(e, index)}
-                />
-              </div>
-              <div className="field-container">
-                <label htmlFor={`projectDescription${index}`}>
-                  Project Description:
-                </label>
-                <textarea
-                  name={`projectDescription`}
-                  value={project.projectDescription}
-                  onChange={(e) => handlePersonalProjectsChange(e, index)}
-                />
-              </div>
-              <div className="field-container">
-                <label htmlFor={`technologiesUsed${index}`}>
-                  Technologies Used:
-                </label>
-                <input
-                  type="text"
-                  name={`technologiesUsed`}
-                  value={project.technologiesUsed}
-                  onChange={(e) => handlePersonalProjectsChange(e, index)}
-                />
-              </div>
-              <div className="field-container">
-                <label htmlFor={`projectLink${index}`}>Project Link:</label>
-                <input
-                  type="text"
-                  name={`projectLink`}
-                  value={project.projectLink}
-                  onChange={(e) => handlePersonalProjectsChange(e, index)}
-                />
-              </div>
-            </div>
-          ))}
-
-
-<div style={{ display: "flex", gap: 10 }}>
-<button
-  className="add-btn"
-  type="button"
-  onClick={handleAddPersonalProject}
->
-  <PlusIcon />
-</button>
-{formData.personalProjects.length > 1 && (
-  <button
-    className="add-btn"
-    type="button"
-    onClick={handleRemovePersonalProject}
-  >
-    <MinusIcon />
-  </button>
-)}
-
-</div>
-          <InputTag
-            tags={certifications}
-            setTags={setCertifications}
-            text={"Certifications"}
-          />
-
-          <div className="field-container">
-            <label htmlFor="professionalSummary">Professional Summary:</label>
-            <textarea
-              name="professionalSummary"
-              value={formData.professionalSummary}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field-container">
-            <label htmlFor="desiredJobTitle">Desired Job Title:</label>
-            <input
-              type="text"
-              name="desiredJobTitle"
-              value={formData.desiredJobTitle}
-              onChange={handleChange}
-            />
-          </div>
-
-          <InputTag
-            tags={languages}
-            setTags={setLanguages}
-            text={"Languages"}
-          />
-
-          <div className="field-container">
-            <label htmlFor="linkedInProfile">LinkedIn Profile:</label>
-            <input
-              type="text"
-              name="linkedInProfile"
-              value={formData.linkedInProfile}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field-container">
-            <label htmlFor="portfolioLink">Portfolio Link:</label>
-            <input
-              type="text"
-              name="portfolioLink"
-              value={formData.portfolioLink}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field-container">
-            <label htmlFor="githubLink">GitHub Link:</label>
-            <input
-              type="text"
-              name="githubLink"
-              value={formData.githubLink}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field-container">
-            <label htmlFor="twitterHandle">Twitter Handle:</label>
-            <input
-              type="text"
-              name="twitterHandle"
-              value={formData.twitterHandle}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field-container">
-            <label htmlFor="availability">Availability:</label>
-            <input
-              type="text"
-              name="availability"
-              value={formData.availability}
-              onChange={handleChange}
-            />
-          </div>
-
-          <InputTag
-            tags={locations}
-            setTags={setLocations}
-            text={"Preffered Locations"}
-          />
-
-          <div className="field-container">
-            <label htmlFor="willingToRelocate">Willing to Relocate:</label>
-            <input
-              type="checkbox"
-              name="willingToRelocate"
-              checked={formData.willingToRelocate}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field-container">
-            <label htmlFor="seekingFullTime">Seeking Full Time:</label>
-            <input
-              type="checkbox"
-              name="seekingFullTime"
-              checked={formData.seekingFullTime}
-              onChange={handleChange}
-            />
-          </div>
-
-          {/* Add similar checkboxes for seekingPartTime and seekingContract */}
-
-          <InputTag
-            tags={industry}
-            setTags={setIndustry}
-            text={"Preffered Industries"}
-          />
-
-          <InputTag
-            tags={company}
-            setTags={setCompany}
-            text={"Preffered Companies"}
-          />
-
-          <div className="field-container">
-            <label htmlFor="currentCtc">Current CTC:</label>
-            <input
-              type="number"
-              name="currentCtc"
-              value={formData.currentCtc}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field-container">
-            <label htmlFor="expectedCtc">Expected CTC:</label>
-            <input
-              type="number"
-              name="expectedCtc"
-              value={formData.expectedCtc}
-              onChange={handleChange}
-            />
-          </div>
-
-          {/* Address Fields */}
-          {/* You can use similar input fields for address fields */}
-
-          <div className="field-container">
-            <label htmlFor="isServingNoticePeriod">
-              Is Serving Notice Period:
-            </label>
-            <input
-              type="checkbox"
-              name="isServingNoticePeriod"
-              checked={formData.isServingNoticePeriod}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field-container">
-            <label htmlFor="dateOfJoiningAtNewOrg">
-              Date of Joining at New Organization:
-            </label>
-            <input
-              type="date"
-              name="dateOfJoiningAtNewOrg"
-              value={formData.dateOfJoiningAtNewOrg}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field-container">
-            <label htmlFor="officialNoticePeriod">
-              Official Notice Period:
-            </label>
-            <input
-              type="number"
-              name="officialNoticePeriod"
-              value={formData.officialNoticePeriod}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field-container">
-            <label htmlFor="isNoticePeriodNegotiable">
-              Is Notice Period Negotiable:
-            </label>
-            <input
-              type="checkbox"
-              name="isNoticePeriodNegotiable"
-              checked={formData.isNoticePeriodNegotiable}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field-container">
-            <label htmlFor="earliestYouCanJoin">Earliest You Can Join:</label>
-            <input
-              type="date"
-              name="earliestYouCanJoin"
-              value={formData.earliestYouCanJoin}
-              onChange={handleChange}
-            />
-          </div>
-
-          <button type="submit" className="submit-button">
-            Register
-          </button>
         </form>
       </div>
     </div>
@@ -797,99 +421,697 @@ const JobSeekerRegistration = () => {
 
 export default JobSeekerRegistration;
 
-// {
-//   "firstName": "John",
-//   "lastName": "Doe",
-//   "profileId": "JD12345",
-//   "email": "john.doe@example.com",
-//   "phoneNumber": "123-456-7890",
-//   "resumeLink": "http://example.com/resume/johndoe",
-//   "coverLetterLink": "http://example.com/coverletter/johndoe",
-//   "skills": [
-//   "Java",
-//   "Spring Boot",
-//   "MongoDB",
-//   "Microservices"
-//   ],
-//   "educationHistory": [
-//   {
-//   "degree": "Bachelor of Technology",
-//   "fieldOfStudy": "Computer Science",
-//   "institutionName": "Tech University",
-//   "graduationYear": "2018"
-//   }
-//   ],
-//   "workExperience": [
-//   {
-//   "companyName": "Tech Innovations",
-//   "jobTitle": "Software Developer",
-//   "startDate": "2019-01-01",
-//   "endDate": "2021-12-31",
-//   "description": "Developed and maintained multiple high-profile enterprise applications."
-//   }
-//   ],
-//   "certifications": [
-//   "Oracle Certified Professional, Java SE 8 Programmer",
-//   "AWS Certified Solutions Architect – Associate"
-//   ],
-//   "personalProjects": [
-//   {
-//   "projectName": "Personal Finance Tracker",
-//   "projectDescription": "A web application for tracking personal finances and investments.",
-//   "technologiesUsed": "React, Node.js, MongoDB",
-//   "projectLink": "http://example.com/projects/finance-tracker"
-//   }
-//   ],
-//   "professionalSummary": "Experienced software developer with a strong background in Java and cloud technologies.",
-//   "desiredJobTitle": "Senior Software Engineer",
-//   "languages": [
-//   "English",
-//   "Spanish"
-//   ],
-//   "linkedInProfile": "http://linkedin.com/in/johndoe",
-//   "portfolioLink": "http://johndoe.com",
-//   "githubLink": "http://github.com/johndoe",
-//   "twitterHandle": "@johndoe",
-//   "availability": "Immediately",
-//   "preferredLocations": [
-//   "New York",
-//   "San Francisco"
-//   ],
-//   "willingToRelocate": true,
-//   "seekingFullTime": true,
-//   "seekingPartTime": false,
-//   "seekingContract": false,
-//   "industryPreferences": [
-//   "Technology",
-//   "Finance"
-//   ],
-//   "companyPreferences": [
-//   "Tech Innovations",
-//   "Finance Forward"
-//   ],
-//   "currentCtc": 80000,
-//   "expectedCtc": 100000,
-//   "currentAddress": {
-//   "street": "123 Tech Lane",
-//   "city": "Techville",
-//   "state": "TechState",
-//   "postalCode": "12345",
-//   "country": "Techland"
-//   },
-//   "permanentAddress": {
-//   "street": "456 Home Road",
-//   "city": "HomeTown",
-//   "state": "HomeState",
-//   "postalCode": "67890",
-//   "country": "Homeland"
-//   },
-//   "isServingNoticePeriod": true,
-//   "dateOfJoiningAtNewOrg": "2024-01-01",
-//   "officialNoticePeriod": 60,
-//   "isNoticePeriodNegotiable": true,
-//   "earliestYouCanJoin": "2023-12-01"
-//   }
+const Step7 = ({
+  formData,
+  handleChange,
+  industry,
+  setIndustry,
+  company,
+  setCompany,
+}: any) => {
+  return (
+    <>
+      {/* Add similar checkboxes for seekingPartTime and seekingContract */}
 
+      <InputTag
+        tags={industry}
+        setTags={setIndustry}
+        text={"Preffered Industries"}
+      />
+
+      <InputTag
+        tags={company}
+        setTags={setCompany}
+        text={"Preffered Companies"}
+      />
+
+      <div className="field-container">
+        <label htmlFor="currentCtc">Current CTC:</label>
+        <input
+          type="number"
+          name="currentCtc"
+          value={formData.currentCtc}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="field-container">
+        <label htmlFor="expectedCtc">Expected CTC:</label>
+        <input
+          type="number"
+          name="expectedCtc"
+          value={formData.expectedCtc}
+          onChange={handleChange}
+        />
+      </div>
+
+      {/* Address Fields */}
+      {/* You can use similar input fields for address fields */}
+
+      <div
+        className="field-container"
+        style={{ display: "flex", alignItems: "center", gap: 12 }}
+      >
+        <label htmlFor="isServingNoticePeriod">Is Serving Notice Period:</label>
+        <input
+          type="checkbox"
+          name="isServingNoticePeriod"
+          checked={formData.isServingNoticePeriod}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="field-container">
+        <label htmlFor="dateOfJoiningAtNewOrg">
+          Date of Joining at New Organization:
+        </label>
+        <input
+          type="date"
+          name="dateOfJoiningAtNewOrg"
+          value={formData.dateOfJoiningAtNewOrg}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="field-container">
+        <label htmlFor="officialNoticePeriod">Official Notice Period:</label>
+        <input
+          type="number"
+          name="officialNoticePeriod"
+          value={formData.officialNoticePeriod}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div
+        className="field-container"
+        style={{ display: "flex", alignItems: "center", gap: 12 }}
+      >
+        <label htmlFor="isNoticePeriodNegotiable">
+          Is Notice Period Negotiable:
+        </label>
+        <input
+          type="checkbox"
+          name="isNoticePeriodNegotiable"
+          checked={formData.isNoticePeriodNegotiable}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="field-container">
+        <label htmlFor="earliestYouCanJoin">Earliest You Can Join:</label>
+        <input
+          type="date"
+          name="earliestYouCanJoin"
+          value={formData.earliestYouCanJoin}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div
+        className="field-container"
+        style={{ display: "flex", alignItems: "center", gap: 12 }}
+      >
+        <label htmlFor="willingToRelocate">Willing to Relocate:</label>
+        <input
+          type="checkbox"
+          name="willingToRelocate"
+          checked={formData.willingToRelocate}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div
+        className="field-container"
+        style={{ display: "flex", alignItems: "center", gap: 12 }}
+      >
+        <label htmlFor="seekingFullTime">Seeking Full Time:</label>
+        <input
+          type="checkbox"
+          name="seekingFullTime"
+          checked={formData.seekingFullTime}
+          onChange={handleChange}
+        />
+      </div>
+    </>
+  );
+};
+
+const Step6 = ({
+  formData,
+  certifications,
+  setCertifications,
+  handleChange,
+  languages,
+  setLanguages,
+  locations,
+  setLocations,
+}: any) => {
+  return (
+    <>
+      <InputTag
+        tags={certifications}
+        setTags={setCertifications}
+        text={"Certifications"}
+      />
+
+      <div className="field-container">
+        <label htmlFor="professionalSummary">Professional Summary:</label>
+        <textarea
+          name="professionalSummary"
+          style={{color: '#000'}}
+          value={formData.professionalSummary}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="field-container">
+        <label htmlFor="desiredJobTitle">Desired Job Title:</label>
+        <input
+          type="text"
+          name="desiredJobTitle"
+          value={formData.desiredJobTitle}
+          onChange={handleChange}
+        />
+      </div>
+
+      <InputTag tags={languages} setTags={setLanguages} text={"Languages"} />
+
+      <div className="field-container">
+        <label htmlFor="linkedInProfile">LinkedIn Profile:</label>
+        <input
+          type="text"
+          name="linkedInProfile"
+          value={formData.linkedInProfile}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="field-container">
+        <label htmlFor="portfolioLink">Portfolio Link:</label>
+        <input
+          type="text"
+          name="portfolioLink"
+          value={formData.portfolioLink}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="field-container">
+        <label htmlFor="githubLink">GitHub Link:</label>
+        <input
+          type="text"
+          name="githubLink"
+          value={formData.githubLink}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="field-container">
+        <label htmlFor="twitterHandle">Twitter Handle:</label>
+        <input
+          type="text"
+          name="twitterHandle"
+          value={formData.twitterHandle}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="field-container">
+        <label htmlFor="availability">Availability:</label>
+        <input
+          type="text"
+          name="availability"
+          value={formData.availability}
+          onChange={handleChange}
+        />
+      </div>
+
+      <InputTag
+        tags={locations}
+        setTags={setLocations}
+        text={"Preffered Locations"}
+      />
+    </>
+  );
+};
+
+const Step5 = ({
+  formData,
+  handleAddPersonalProject,
+  handleRemovePersonalProject,
+  handlePersonalProjectsChange,
+}: any) => {
+  return (
+    <>
+      {formData.personalProjects.map((project: any, index: number) => (
+        <div key={index}>
+          <h2
+            style={{
+              width: "100%",
+              textAlign: "center",
+              fontWeight: 600,
+              paddingTop: 40,
+              fontSize: 22,
+            }}
+          >
+            Personal Project {index + 1}
+          </h2>
+          <div className="field-container">
+            <label htmlFor={`projectName${index}`}>Project Name:</label>
+            <input
+              type="text"
+              name={`projectName`}
+              value={project.projectName}
+              onChange={(e) => handlePersonalProjectsChange(e, index)}
+            />
+          </div>
+          <div className="field-container">
+            <label htmlFor={`projectDescription${index}`}>
+              Project Description:
+            </label>
+            <textarea
+               style={{color: '#000'}}
+              name={`projectDescription`}
+              value={project.projectDescription}
+              onChange={(e) => handlePersonalProjectsChange(e, index)}
+            />
+          </div>
+          <div className="field-container">
+            <label htmlFor={`technologiesUsed${index}`}>
+              Technologies Used:
+            </label>
+            <input
+              type="text"
+              name={`technologiesUsed`}
+              value={project.technologiesUsed}
+              onChange={(e) => handlePersonalProjectsChange(e, index)}
+            />
+          </div>
+          <div className="field-container">
+            <label htmlFor={`projectLink${index}`}>Project Link:</label>
+            <input
+              type="text"
+              name={`projectLink`}
+              value={project.projectLink}
+              onChange={(e) => handlePersonalProjectsChange(e, index)}
+            />
+          </div>
+        </div>
+      ))}
+
+      <div style={{ display: "flex", gap: 10 }}>
+        <button
+          className="add-btn"
+          type="button"
+          onClick={handleAddPersonalProject}
+        >
+          <PlusIcon />
+        </button>
+        {formData.personalProjects.length > 1 && (
+          <button
+            className="add-btn"
+            type="button"
+            onClick={handleRemovePersonalProject}
+          >
+            <MinusIcon />
+          </button>
+        )}
+      </div>
+    </>
+  );
+};
+
+const Step4 = ({
+  formData,
+  handleEducationHistoryChange,
+  handleRemoveEducationHistory,
+  handleAddEducationHistory,
+}: any) => {
+  return (
+    <>
+      {formData.educationHistory.map((edu: any, index: any) => (
+        <div key={index}>
+          <h2
+            style={{
+              width: "100%",
+              textAlign: "center",
+              fontWeight: 600,
+              paddingTop: 40,
+              fontSize: 22,
+            }}
+          >
+            Education History {index + 1}
+          </h2>
+          <div className="field-container">
+            <label htmlFor={`degree${index}`}>Degree:</label>
+            <input
+              type="text"
+              name={`degree`}
+              value={edu.degree}
+              onChange={(e) => handleEducationHistoryChange(e, index)}
+            />
+          </div>
+          <div className="field-container">
+            <label htmlFor={`fieldOfStudy${index}`}>Field of Study:</label>
+            <input
+              type="text"
+              name={`fieldOfStudy`}
+              value={edu.fieldOfStudy}
+              onChange={(e) => handleEducationHistoryChange(e, index)}
+            />
+          </div>
+          <div className="field-container">
+            <label htmlFor={`institutionName${index}`}>Institution Name:</label>
+            <input
+              type="text"
+              name={`institutionName`}
+              value={edu.institutionName}
+              onChange={(e) => handleEducationHistoryChange(e, index)}
+            />
+          </div>
+          <div className="field-container">
+            <label htmlFor={`graduationYear${index}`}>Graduation Year:</label>
+            <input
+              type="text"
+              name={`graduationYear`}
+              value={edu.graduationYear}
+              onChange={(e) => handleEducationHistoryChange(e, index)}
+            />
+          </div>
+        </div>
+      ))}
+      <div style={{ display: "flex", gap: 10 }}>
+        <button
+          className="add-btn"
+          type="button"
+          onClick={handleAddEducationHistory}
+        >
+          <PlusIcon />
+        </button>
+        {formData.educationHistory.length > 1 && (
+          <button
+            className="add-btn"
+            type="button"
+            onClick={handleRemoveEducationHistory}
+          >
+            <MinusIcon />
+          </button>
+        )}
+      </div>
+    </>
+  );
+};
+
+const Step3 = ({
+  formData,
+  handleWorkExperienceChange,
+  handleRemoveWorkExperience,
+  handleAddWorkExperience,
+}: any) => {
+  return (
+    <>
+      {formData.workExperience.map((exp: any, index: any) => (
+        <div key={index}>
+          <h2
+            style={{
+              width: "100%",
+              textAlign: "center",
+              fontWeight: 600,
+              paddingTop: 40,
+              fontSize: 22,
+            }}
+          >
+            Work Experience {index + 1}
+          </h2>
+          <div className="field-container">
+            <label htmlFor={`companyName${index}`}>Company Name:</label>
+            <input
+              type="text"
+              name={`companyName`}
+              value={exp.companyName}
+              onChange={(e) => handleWorkExperienceChange(e, index)}
+            />
+          </div>
+          <div className="field-container">
+            <label htmlFor={`jobTitle${index}`}>Job Title:</label>
+            <input
+              type="text"
+              name={`jobTitle`}
+              value={exp.jobTitle}
+              onChange={(e) => handleWorkExperienceChange(e, index)}
+            />
+          </div>
+          <div className="field-container">
+            <label htmlFor={`startDate${index}`}>Start Date:</label>
+            <input
+              type="text"
+              name={`startDate`}
+              value={exp.startDate}
+              onChange={(e) => handleWorkExperienceChange(e, index)}
+            />
+          </div>
+          <div className="field-container">
+            <label htmlFor={`endDate${index}`}>End Date:</label>
+            <input
+              type="text"
+              name={`endDate`}
+              value={exp.endDate}
+              onChange={(e) => handleWorkExperienceChange(e, index)}
+            />
+          </div>
+          <div className="field-container">
+            <label htmlFor={`description${index}`}>Description:</label>
+            <textarea
+            style={{color: '#000'}}
+              name={`description`}
+              value={exp.description}
+              onChange={(e: any) => handleWorkExperienceChange(e, index)}
+            />
+          </div>
+        </div>
+      ))}
+
+      <div style={{ display: "flex", gap: 10 }}>
+        <button
+          className="add-btn"
+          type="button"
+          onClick={handleAddWorkExperience}
+        >
+          <PlusIcon />
+        </button>
+        {formData.workExperience.length > 1 && (
+          <button
+            className="add-btn"
+            type="button"
+            onClick={handleRemoveWorkExperience}
+          >
+            <MinusIcon />
+          </button>
+        )}
+      </div>
+    </>
+  );
+};
+
+const Step2 = ({
+  currentStreet,
+  setCurrentStreet,
+  currentCity,
+  setCurrentCity,
+  currentState,
+  setCurrentState,
+  currentPostalCode,
+  setCurrentPostalCode,
+  currentCountry,
+  setCurrentCountry,
+  permanentStreet,
+  setPermanentStreet,
+  permanentCity,
+  setPermanentCity,
+  permanentState,
+  setPermanentState,
+  permanentPostalCode,
+  setPermanentPostalCode,
+  permanentCountry,
+  setPermanentCountry,
+  handleInputChange,
+}: any) => {
+  return (
+    <>
+      <div>
+        <div className="field-container">
+          <label htmlFor="currentStreet">Current Street:</label>
+          <input
+            type="text"
+            id="currentStreet"
+            value={currentStreet}
+            onChange={(e) => handleInputChange(e, setCurrentStreet)}
+          />
+        </div>
+        <div className="field-container">
+          <label htmlFor="currentCity">Current City:</label>
+          <input
+            type="text"
+            id="currentCity"
+            value={currentCity}
+            onChange={(e) => handleInputChange(e, setCurrentCity)}
+          />
+        </div>
+        <div className="field-container">
+          <label htmlFor="currentState">Current State:</label>
+          <input
+            type="text"
+            id="currentState"
+            value={currentState}
+            onChange={(e) => handleInputChange(e, setCurrentState)}
+          />
+        </div>
+        <div className="field-container">
+          <label htmlFor="currentPostalCode">Current Postal Code:</label>
+          <input
+            type="text"
+            id="currentPostalCode"
+            value={currentPostalCode}
+            onChange={(e) => handleInputChange(e, setCurrentPostalCode)}
+          />
+        </div>
+        <div className="field-container">
+          <label htmlFor="currentCountry">Current Country:</label>
+          <input
+            type="text"
+            id="currentCountry"
+            value={currentCountry}
+            onChange={(e) => handleInputChange(e, setCurrentCountry)}
+          />
+        </div>
+      </div>
+
+      <div>
+        <div className="field-container">
+          <label htmlFor="permanentStreet">Permanent Street:</label>
+          <input
+            type="text"
+            id="permanentStreet"
+            value={permanentStreet}
+            onChange={(e) => handleInputChange(e, setPermanentStreet)}
+          />
+        </div>
+        <div className="field-container">
+          <label htmlFor="permanentCity">Permanent City:</label>
+          <input
+            type="text"
+            id="permanentCity"
+            value={permanentCity}
+            onChange={(e) => handleInputChange(e, setPermanentCity)}
+          />
+        </div>
+        <div className="field-container">
+          <label htmlFor="permanentState">Permanent State:</label>
+          <input
+            type="text"
+            id="permanentState"
+            value={permanentState}
+            onChange={(e) => handleInputChange(e, setPermanentState)}
+          />
+        </div>
+        <div className="field-container">
+          <label htmlFor="permanentPostalCode">Permanent Postal Code:</label>
+          <input
+            type="text"
+            id="permanentPostalCode"
+            value={permanentPostalCode}
+            onChange={(e) => handleInputChange(e, setPermanentPostalCode)}
+          />
+        </div>
+        <div className="field-container">
+          <label htmlFor="permanentCountry">Permanent Country:</label>
+          <input
+            type="text"
+            id="permanentCountry"
+            value={permanentCountry}
+            onChange={(e) => handleInputChange(e, setPermanentCountry)}
+          />
+        </div>
+      </div>
+    </>
+  );
+};
+
+const Step1 = ({ formData, handleChange, skills, setSkills }: any) => {
+  return (
+    <>
+      <div style={{ display: "flex", gap: 20 }}>
+        <div className="field-container">
+          <label htmlFor="firstName">First Name:</label>
+          <input
+            type="text"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="field-container">
+          <label htmlFor="lastName">Last Name:</label>
+          <input
+            type="text"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div className="field-container">
+        <label htmlFor="profileId">Profile ID:</label>
+        <input
+          type="text"
+          name="profileId"
+          value={formData.profileId}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="field-container">
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="field-container">
+        <label htmlFor="phoneNumber">Phone Number:</label>
+        <input
+          type="tel"
+          name="phoneNumber"
+          value={formData.phoneNumber}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="field-container">
+        <label htmlFor="resumeLink">Resume Link:</label>
+        <input
+          type="text"
+          name="resumeLink"
+          value={formData.resumeLink}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="field-container">
+        <label htmlFor="coverLetterLink">Cover Letter Link:</label>
+        <input
+          type="text"
+          name="coverLetterLink"
+          value={formData.coverLetterLink}
+          onChange={handleChange}
+        />
+      </div>
+      {/* Add similar input fields for other personal information */}
+
+      <InputTag tags={skills} setTags={setSkills} text={"Skills"} />
+    </>
+  );
+};
 const PlusIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -901,7 +1123,7 @@ const PlusIcon = () => (
     fill="white"
   >
     <path
-      fill-rule="evenodd"
+      fillRule="evenodd"
       d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z"
     ></path>
   </svg>
@@ -929,6 +1151,6 @@ const MinusIcon = () => (
     viewBox="0 0 24 24"
     fill="white"
   >
-    <path fill-rule="evenodd" d="M 2 11 L 22 11 L 22 13 L 2 13 Z"></path>
+    <path fillRule="evenodd" d="M 2 11 L 22 11 L 22 13 L 2 13 Z"></path>
   </svg>
 );

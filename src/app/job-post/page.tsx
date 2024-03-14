@@ -293,7 +293,7 @@ export default function PostJob() {
               onChange={(e) => setExperienceRequired(e.target.value)}
             />
           </div>
-          <div className="field-container">
+          <div className="field-container" style={{display: 'flex', gap: 20}}>
             <label
               htmlFor="isOpen"
               className="field-label"
@@ -301,14 +301,31 @@ export default function PostJob() {
             >
               Is Open
             </label>
-            <select
-              id="isOpen"
-              value={isOpen ? "true" : "false"}
-              onChange={(e) => setIsOpen(e.target.value === "true")}
-            >
-              <option value="true">Yes</option>
-              <option value="false">No</option>
-            </select>
+
+
+ 
+
+            <div style={{display: 'flex', gap: 10}}>
+  <input
+    type="radio"
+    id="yes"
+    name="isOpen"
+    value="true"
+    checked={isOpen}
+    onChange={() => setIsOpen(true)}
+  />
+  <label htmlFor="yes">Yes</label>
+  <input
+    type="radio"
+    id="no"
+    name="isOpen"
+    value="false"
+    checked={!isOpen}
+    onChange={() => setIsOpen(false)}
+  />
+  <label htmlFor="no">No</label>
+</div>
+
           </div>
           <button type="submit" className="submit-button">
             Post Job
@@ -343,7 +360,7 @@ const PlusIcon = () => (
     fill="white"
   >
     <path
-      fill-rule="evenodd"
+      fillRule="evenodd"
       d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z"
     ></path>
   </svg>
@@ -359,6 +376,6 @@ const MinusIcon = () => (
     viewBox="0 0 24 24"
     fill="white"
   >
-    <path fill-rule="evenodd" d="M 2 11 L 22 11 L 22 13 L 2 13 Z"></path>
+    <path fillRule="evenodd" d="M 2 11 L 22 11 L 22 13 L 2 13 Z"></path>
   </svg>
 );
