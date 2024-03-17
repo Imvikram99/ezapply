@@ -46,7 +46,7 @@ export default function PostJob() {
     e.preventDefault();
 
     try {
-      const token = "YOUR_TOKEN_HERE"; // Replace with your actual token
+      const token = localStorage.getItem('authenticated')
 
       const response = await axios.post(
         `${baseUrl}/api/recruitment/post-job`,

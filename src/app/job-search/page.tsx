@@ -269,6 +269,8 @@ const JobSeekerRegistration = () => {
       earliestYouCanJoin: formData.earliestYouCanJoin,
     };
 
+    const token = localStorage.getItem('authenticated')
+
     try {
       // Sending the POST request using Axios
       const response = await axios.post(
@@ -277,7 +279,7 @@ const JobSeekerRegistration = () => {
         {
           headers: {
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWZpemJ1dHQwMjJAZ21haWwuY29tIiwicm9sZXMiOlsiUk9MRV9KT0JTRUVLRVIiXSwiaWF0IjoxNzEwMzY3NDg4LCJleHAiOjE3MTA0NTM4ODh9.mP39X7cZ-9j5tlEZEr7TwBmBb-aXisjKV4t0_uNe5uU",
+              `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         }

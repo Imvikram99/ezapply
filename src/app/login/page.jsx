@@ -4,10 +4,12 @@ import { useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { baseUrl } from "@/utils/constants";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter()
 
   async function handleSubmit(e) {
     e.preventDefault(); // Prevent default form submission behavior
@@ -18,8 +20,12 @@ export default function Login() {
         password: password,
       });
 
-      if(response.data.token)
+      if(response.data.token){
       toast.success("Successfully logged in."); // Display success message
+      localStorage.setItem('authenticated',response.data.token)
+      router.push('/home', { scroll: false })
+      
+      }
     } catch (error) {
       console.error("Login failed:", error);
       toast.error("Login failed. Please try again.");
