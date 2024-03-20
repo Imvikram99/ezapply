@@ -1,1 +1,1 @@
-export const baseUrl = `http://alb-test1-1116885660.ap-south-1.elb.amazonaws.com:8085`
+export const baseUrl = `https://alb-test1-1116885660.ap-south-1.elb.amazonaws.com:8085`
