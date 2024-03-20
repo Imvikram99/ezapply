@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import axios from "axios";
@@ -9,7 +9,8 @@ import { useRouter } from "next/navigation";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter()
+  const [role, setRole] = useState("JOBSEEKER");
+  const router = useRouter();
 
   async function handleSubmit(e) {
     e.preventDefault(); // Prevent default form submission behavior
@@ -20,11 +21,10 @@ export default function Login() {
         password: password,
       });
 
-      if(response.data.token){
-      toast.success("Successfully logged in."); // Display success message
-      localStorage.setItem('authenticated',response.data.token)
-      router.push('/home', { scroll: false })
-      
+      if (response.data.token) {
+        toast.success("Successfully logged in."); // Display success message
+        localStorage.setItem("authenticated", response.data.token);
+        router.push("/home", { scroll: false });
       }
     } catch (error) {
       console.error("Login failed:", error);
@@ -34,7 +34,7 @@ export default function Login() {
 
   return (
     <div className="signup-page">
-      <Toaster/>
+      <Toaster />
       <img src={"/login.jpg"} className="login-img" />
       <div className="auth-container">
         <h1>
@@ -69,13 +69,40 @@ export default function Login() {
               />
             </div>
           </div>
-          
+
+          <div style={{ display: "flex", gap: 10, marginTop: 20 }}>
+            <input
+              type="radio"
+              id="yes"
+              name="isOpen"
+              value="true"
+              checked={role === "JOBSEEKER"}
+              onChange={() => setRole("JOBSEEKER")}
+            />
+            <label htmlFor="JOBSEEKER">JOB SEEKER</label>
+            <input
+              type="radio"
+              id="no"
+              name="isOpen"
+              value="false"
+              checked={role === "RECUITER"}
+              onChange={() => setRole('RECUITER')}
+            />
+            <label htmlFor="RECUITER">RECUITER</label>
+          </div>
+
           <button id="signInSubmit" type="submit" className="submit-button">
             Sign In
           </button>
           <div className="switch-container">
             <p>
-              Don't have an account? <span tabIndex="0"  onClick={() => router.push('/signup', { scroll: false })}>Sign up</span>
+              Don't have an account?{" "}
+              <span
+                tabIndex="0"
+                onClick={() => router.push("/signup", { scroll: false })}
+              >
+                Sign up
+              </span>
             </p>
           </div>
         </form>
