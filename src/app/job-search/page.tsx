@@ -301,7 +301,8 @@ const JobSeekerRegistration = () => {
   return (
     <div className="signup-page">
       <Toaster />
-      <div className="auth-container" style={authContainer}>
+      <img src={"/search.jpg"} className="login-img" />
+      <div className="auth-container">
         <h1
           style={{
             textAlign: "center",
@@ -1131,17 +1132,6 @@ const PlusIcon = () => (
   </svg>
 );
 
-const authContainer = {
-  marginLeft: 0,
-  margin: "auto",
-  boxShadow: "0 2px 10px 0 rgba(0, 0, 0, 0.1)",
-  marginTop: 30,
-  paddingBottom: 20,
-  borderRadius: 12,
-  paddingTop: 30,
-  background: "#6991F7",
-  color: "#fff",
-};
 
 const MinusIcon = () => (
   <svg

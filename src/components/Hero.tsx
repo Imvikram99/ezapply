@@ -15,7 +15,7 @@ export default function Hero() {
           <h1>Find Your Dream Jobs</h1>
           <h2 className="mb-5">With Ease and Comfort</h2>
           <p>
-            <a  className="btn-custom on-hov py-3 pr-2"  href={'/signup'}>
+            <a  className="remgister py-3 pr-2"  href={'/signup'}>
               Register Now
             </a>
           </p>

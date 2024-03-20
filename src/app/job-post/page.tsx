@@ -46,7 +46,7 @@ export default function PostJob() {
     e.preventDefault();
 
     try {
-      const token = localStorage.getItem('authenticated')
+      const token = localStorage.getItem("authenticated");
 
       const response = await axios.post(
         `${baseUrl}/api/recruitment/post-job`,
@@ -91,7 +91,8 @@ export default function PostJob() {
   return (
     <div className="post-job-page">
       <Toaster />
-      <div className="auth-container" style={authContainer}>
+      <img src={"/pomst.jpg"} className="login-img" />
+      <div className="auth-container">
         <h1 style={{ textAlign: "center", fontWeight: "bolder" }}>
           Post a Job
         </h1>
@@ -100,7 +101,7 @@ export default function PostJob() {
             <label
               htmlFor="title"
               className="field-label"
-              style={{ color: "#fff", fontWeight: "400" }}
+              style={{  fontWeight: "400" }}
             >
               Title
             </label>
@@ -116,7 +117,7 @@ export default function PostJob() {
             <label
               htmlFor="description"
               className="field-label"
-              style={{ color: "#fff", fontWeight: "400" }}
+              style={{  fontWeight: "400" }}
             >
               Description
             </label>
@@ -131,7 +132,7 @@ export default function PostJob() {
             <label
               htmlFor="postingDate"
               className="field-label"
-              style={{ color: "#fff", fontWeight: "400" }}
+              style={{  fontWeight: "400" }}
             >
               Posting Date
             </label>
@@ -146,7 +147,7 @@ export default function PostJob() {
             <label
               htmlFor="closingDate"
               className="field-label"
-              style={{ color: "#fff", fontWeight: "400" }}
+              style={{  fontWeight: "400" }}
             >
               Closing Date
             </label>
@@ -161,7 +162,7 @@ export default function PostJob() {
             <label
               htmlFor="jobPosition"
               className="field-label"
-              style={{ color: "#fff", fontWeight: "400" }}
+              style={{  fontWeight: "400" }}
             >
               Job Position
             </label>
@@ -177,7 +178,7 @@ export default function PostJob() {
             <label
               htmlFor="recruitingManager"
               className="field-label"
-              style={{ color: "#fff", fontWeight: "400" }}
+              style={{  fontWeight: "400" }}
             >
               Recruiting Manager
             </label>
@@ -193,7 +194,7 @@ export default function PostJob() {
             <label
               htmlFor="vacancy"
               className="field-label"
-              style={{ color: "#fff", fontWeight: "400" }}
+              style={{  fontWeight: "400" }}
             >
               Vacancy
             </label>
@@ -209,7 +210,7 @@ export default function PostJob() {
             <label
               htmlFor="requiredSkills"
               className="field-label"
-              style={{ color: "#fff", fontWeight: "400" }}
+              style={{  fontWeight: "400" }}
             >
               Required Skills (comma-separated)
             </label>
@@ -225,7 +226,7 @@ export default function PostJob() {
             <label
               htmlFor="recruitmentStages"
               className="field-label"
-              style={{ color: "#fff", fontWeight: "400" }}
+              style={{  fontWeight: "400" }}
             >
               Recruitment Stages (JSON)
             </label>
@@ -281,7 +282,7 @@ export default function PostJob() {
             <label
               htmlFor="experienceRequired"
               className="field-label"
-              style={{ color: "#fff", fontWeight: "400" }}
+              style={{  fontWeight: "400" }}
             >
               Experience Required
             </label>
@@ -293,39 +294,35 @@ export default function PostJob() {
               onChange={(e) => setExperienceRequired(e.target.value)}
             />
           </div>
-          <div className="field-container" style={{display: 'flex', gap: 20}}>
+          <div className="field-container" style={{ display: "flex", gap: 20 }}>
             <label
               htmlFor="isOpen"
               className="field-label"
-              style={{ color: "#fff", fontWeight: "400" }}
+              style={{  fontWeight: "400" }}
             >
               Is Open
             </label>
 
-
- 
-
-            <div style={{display: 'flex', gap: 10}}>
-  <input
-    type="radio"
-    id="yes"
-    name="isOpen"
-    value="true"
-    checked={isOpen}
-    onChange={() => setIsOpen(true)}
-  />
-  <label htmlFor="yes">Yes</label>
-  <input
-    type="radio"
-    id="no"
-    name="isOpen"
-    value="false"
-    checked={!isOpen}
-    onChange={() => setIsOpen(false)}
-  />
-  <label htmlFor="no">No</label>
-</div>
-
+            <div style={{ display: "flex", gap: 10 }}>
+              <input
+                type="radio"
+                id="yes"
+                name="isOpen"
+                value="true"
+                checked={isOpen}
+                onChange={() => setIsOpen(true)}
+              />
+              <label htmlFor="yes">Yes</label>
+              <input
+                type="radio"
+                id="no"
+                name="isOpen"
+                value="false"
+                checked={!isOpen}
+                onChange={() => setIsOpen(false)}
+              />
+              <label htmlFor="no">No</label>
+            </div>
           </div>
           <button type="submit" className="submit-button">
             Post Job
@@ -336,18 +333,7 @@ export default function PostJob() {
   );
 }
 
-const authContainer = {
-  marginLeft: 0,
-  margin: "auto",
-  boxShadow: "0 2px 10px 0 rgba(0, 0, 0, 0.1)",
-  marginTop: 30,
-  paddingBottom: 20,
-  borderRadius: 12,
-  paddingTop: 30,
 
-  background: "#6991F7",
-  color: "#fff",
-};
 
 const PlusIcon = () => (
   <svg
