@@ -5,6 +5,7 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { baseUrl } from "@/utils/constants";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -19,6 +20,7 @@ export default function Login() {
       const response = await axios.post(`${baseUrl}/auth/login`, {
         username: username,
         password: password,
+        role,
       });
 
       if (response.data.token) {
@@ -27,7 +29,10 @@ export default function Login() {
         router.push("/home", { scroll: false });
       }
     } catch (error) {
-      console.error("Login failed:", error);
+      if (error.response.status == 417) {
+        toast.error("Authentication Failed");
+        return;
+      }
       toast.error("Login failed. Please try again.");
     }
   }
@@ -35,7 +40,7 @@ export default function Login() {
   return (
     <div className="signup-page">
       <Toaster />
-      <img src={"/login.jpg"} className="login-img" />
+      <Image src={"/login.jpg"} className="login-img" alt={""} />
       <div className="auth-container">
         <h1>
           <b>Welcome Guest,</b> Sign in to Ezapply
@@ -86,7 +91,7 @@ export default function Login() {
               name="isOpen"
               value="false"
               checked={role === "RECUITER"}
-              onChange={() => setRole('RECUITER')}
+              onChange={() => setRole("RECUITER")}
             />
             <label htmlFor="RECUITER">RECUITER</label>
           </div>
