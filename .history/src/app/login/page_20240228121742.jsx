@@ -1,5 +1,6 @@
 "use client";
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -31,7 +32,10 @@ export default function LoginPage() {
 
       // Redirect to a different page or update UI upon successful login
     } catch (error) {
-      console.error('Login error:', error);
+      if(error.response.status == 417){
+        toast.error('Authentication Failed')
+        return
+      }
       setError('Failed to login. Please check your username and password.');
     }
   }

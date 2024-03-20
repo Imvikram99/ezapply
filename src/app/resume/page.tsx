@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import withAuth from "@/components/Auth";
@@ -15,22 +15,18 @@ const Resume = () => {
     const formData = new FormData();
     formData.append("file", file);
 
-    const token = localStorage.getItem('authenticated')
+    const token = localStorage.getItem("authenticated");
 
     try {
-      const response = await fetch(
-        `${baseUrl}/api/jobseekers/upload-resume`,
-        {
-          method: "POST",
-          headers: {
-            Authorization:
-              `Bearer ${token}`,
-          },
-          body: formData,
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/jobseekers/upload-resume`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
 
-      console.log(response)
+      console.log(response);
     } catch (error) {
       console.error("Error uploading file:", error);
       toast.error("Failed to upload file");

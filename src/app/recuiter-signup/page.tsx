@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import axios from "axios";
@@ -20,29 +20,29 @@ export default function RecuiterSignup() {
   const [role, setRole] = useState("RECUITER");
   const router = useRouter();
 
-  async function handleSubmit(e: { preventDefault: () => void; }) {
+
+  async function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
+    
 
     try {
       // First API call to sign up the user and obtain a token
-      const signUpResponse = await axios.post(
-        `${baseUrl}/auth/signup`,
-        {
-          username: username,
-          password: password,
-          role: role,
-        }
-      );
+      const signUpResponse = await axios.post(`${baseUrl}/auth/signup`, {
+        username: username,
+        password: password,
+        role: role,
+      });
 
-      if(!signUpResponse.data.success){
+      if (!signUpResponse.data.success) {
         toast.error("Recruiter Sign up failed. Please try again.");
       }
-    
-        const loginResponse = await axios.post(`${baseUrl}/auth/login`, {
-          username: username,
-          password: password,
-        });
- 
+
+      const loginResponse = await axios.post(`${baseUrl}/auth/login`, {
+        username: username,
+        password: password,
+      });
+
+      localStorage.setItem("authenticated", loginResponse.data.token);
 
       // Second API call to register the user using the obtained token
       const registerResponse = await axios.post(
@@ -55,25 +55,25 @@ export default function RecuiterSignup() {
           organization: organization,
           designation: designation,
           location: location,
-          email: email
+          email: email,
         },
         {
           headers: {
             Authorization: `Bearer ${loginResponse.data.token}`,
-            "Content-Type": "application/json"
-          }
+            "Content-Type": "application/json",
+          },
         }
       );
-
-      console.log(registerResponse.data);
       toast.success(registerResponse.data.message);
-      // Redirect or handle success as required
-    } catch (error) {
+
+      if (loginResponse.data.token || registerResponse.data.id){
+        router.push("/job-post", { scroll: false });
+      }
+    } catch (error: any) {
       console.error("Recruiter registration failed:", error);
-      toast.error("Recruiter registration failed. Please try again.");
+      toast.error(error.message);
     }
   }
-
 
   return (
     <div className="signup-page">
@@ -84,7 +84,7 @@ export default function RecuiterSignup() {
           <b>Welcome Guest,</b> Sign up as Recruiter
         </h1>
         <form className="signup-form" onSubmit={handleSubmit}>
-        <div className="field-container">
+          <div className="field-container">
             <label htmlFor="username" className="field-label">
               Username
             </label>
@@ -210,9 +210,7 @@ export default function RecuiterSignup() {
           <div className="switch-container">
             <p>
               Already have an account?{" "}
-              <span
-                onClick={() => router.push("/login", { scroll: false })}
-              >
+              <span onClick={() => router.push("/login", { scroll: false })}>
                 Sign In
               </span>
             </p>

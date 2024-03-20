@@ -1,9 +1,12 @@
 "use client";
 
+import withAuth from "@/components/Auth";
 import InputTag from "@/components/InputTag";
 import { baseUrl } from "@/utils/constants";
 import axios from "axios";
-import React, { useState } from "react";
+import { jwtDecode } from "jwt-decode";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 
 const initialFormData = {
@@ -84,6 +87,28 @@ const JobSeekerRegistration = () => {
   const [permanentPostalCode, setPermanentPostalCode] = useState("67890");
   const [permanentCountry, setPermanentCountry] = useState("Homeland");
   const [currentStep, setCurrentStep] = useState(1);
+  
+  const [loading, setLoading] = useState(false);
+
+
+  useEffect(() => {
+
+  setLoading(true)
+
+  const token : any = localStorage.getItem('authenticated') 
+
+  const decoded : any = jwtDecode(token)
+
+  if(!decoded.roles.includes("ROLE_JOBSEEKER")){
+    window.location.href="/login"
+  }
+
+  setTimeout(() => {
+    setLoading(false) 
+  }, 2000);
+  
+
+}, [])
 
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
@@ -301,7 +326,7 @@ const JobSeekerRegistration = () => {
   return (
     <div className="signup-page">
       <Toaster />
-      <img src={"/search.jpg"} className="login-img" />
+      <Image src={"/search.jpg"} className="login-img" alt={""} />
       <div className="auth-container">
         <h1
           style={{
@@ -422,7 +447,7 @@ const JobSeekerRegistration = () => {
   );
 };
 
-export default JobSeekerRegistration;
+export default withAuth(JobSeekerRegistration);
 
 const Step7 = ({
   formData,
