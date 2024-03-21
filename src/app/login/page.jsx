@@ -5,7 +5,6 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { baseUrl } from "@/utils/constants";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -40,7 +39,7 @@ export default function Login() {
   return (
     <div className="signup-page">
       <Toaster />
-      <Image src={"/login.jpg"} className="login-img" alt={""} />
+      <img src={"/login.jpg"} className="login-img" />
       <div className="auth-container">
         <h1>
           <b>Welcome Guest,</b> Sign in to Ezapply

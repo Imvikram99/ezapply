@@ -40,13 +40,13 @@ const JobListing =() => {
 
         console.log(decoded)
 
-        // Check if the user role includes "ROLE_JOBSEEKER"
-        if (!decoded.roles.includes('ROLE_JOBSEEKER')) {
+        // Check if the user role includes "ROLE_RECUITER"
+        if (!decoded.roles.includes('ROLE_RECUITER')) {
           window.location.href = '/login';
           return;
         }
 
-        const response = await axios.get(`${baseUrl}/api/jobseekers/all-jobs`, {
+        const response = await axios.get(`${baseUrl}/api/recruitment/job-postings`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

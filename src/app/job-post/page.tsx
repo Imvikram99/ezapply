@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { baseUrl } from "@/utils/constants";
 import { jwtDecode } from "jwt-decode";
 import withAuth from "@/components/Auth";
-import Image from "next/image";
 
 const PostJob = () => {
   const [title, setTitle] = useState("");
@@ -122,7 +121,7 @@ const PostJob = () => {
     return (
       <div className="post-job-page">
         <Toaster />
-        <Image src={"/pomst.jpg"} className="login-img" alt={""} />
+        <img src={"/pomst.jpg"} className="login-img" />
         <div className="auth-container">
           <h1 style={{ textAlign: "center", fontWeight: "bolder" }}>
             Post a Job
