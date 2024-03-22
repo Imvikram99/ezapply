@@ -7,6 +7,7 @@ import { baseUrl } from '@/utils/constants'
 import axios from 'axios'
 import { jwtDecode } from 'jwt-decode'
 import React, { useEffect, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 
 const JobListing =() => {
 
@@ -65,12 +66,38 @@ const JobListing =() => {
     fetchJobs();
   }, []);
 
+  const applyToJob = async (jobId: any) => {
+    try {
+      const token = localStorage.getItem('authenticated');
+
+      const response = await axios.post(`${baseUrl}/api/jobseekers/apply/${jobId}`, null, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      toast.success('Applied to job successfully');
+      // You can update UI or show a success message here
+    } catch (error: any) {
+
+      if(error.response.status === 404){
+        window.location.href = 'job-search'
+        toast.error('You need to Onboard before applying..');
+        return;
+      }
+      toast.error('Error applying to job');
+      // Handle error: show error message or retry logic
+    }
+  };
+
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className="job">
+      <Toaster/>
     <div className="wrapper">
      <SearchMenu/>
      <div className="main-container">
@@ -82,7 +109,7 @@ const JobListing =() => {
        </div>
        <div>
       <h2>Available Jobs</h2>
-      <JobCardList jobs={jobs} />
+      <JobCardList jobs={jobs} applyToJob={applyToJob}/>
     </div>
       </div>
      </div>
@@ -92,7 +119,7 @@ const JobListing =() => {
 }
 
 
-const JobCardList = ({ jobs } : any) => {
+const JobCardList = ({ jobs , applyToJob} : any) => {
   return (
     <div className="job-cards">
       {jobs.map((job : any, index: number) => (
@@ -112,9 +139,9 @@ const JobCardList = ({ jobs } : any) => {
             ))}
           </div>
           <div className="job-card-buttons">
-            {["Apply Now", "Messages"].map((button: any, buttonIndex: number) => (
-              <button className={`search-buttons card-buttons${buttonIndex === 1 ? ' card-buttons-msg' : ''}`} key={buttonIndex}>{button}</button>
-            ))}
+          <button className={`search-buttons card-buttons `} onClick={() => applyToJob(job.id)} >Apply Now</button>
+              <button className={`search-buttons card-buttons card-buttons-msg`} >Messages</button>
+         
           </div>
         </div>
       ))}

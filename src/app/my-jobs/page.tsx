@@ -115,7 +115,7 @@ const JobCardList = ({ jobs } : any) => {
             ))}
           </div>
           <div className="job-card-buttons">
-            {["Apply Now", "Messages"].map((button: any, buttonIndex: number) => (
+            {["Edit", "Remove"].map((button: any, buttonIndex: number) => (
               <button className={`search-buttons card-buttons${buttonIndex === 1 ? ' card-buttons-msg' : ''}`} key={buttonIndex}>{button}</button>
             ))}
           </div>
