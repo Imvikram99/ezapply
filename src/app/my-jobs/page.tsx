@@ -6,11 +6,12 @@ import SearchType from '@/components/SearchType'
 import { baseUrl } from '@/utils/constants'
 import axios from 'axios'
 import { jwtDecode } from 'jwt-decode'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 const JobListing =() => {
 
-
+  const router = useRouter();
   const [jobs, setJobs] = useState([
     {
       title: "UI / UX Designer",
@@ -84,6 +85,8 @@ const JobListing =() => {
       <h2>Available Jobs</h2>
       <JobCardList jobs={jobs} />
     </div>
+    <br/>
+    <button className='remgister' style={{height: 50, borderRadius: 4, color:'#fff', margin: '0 auto'}} onClick={() => router.push('/job-post', { scroll: false })}>Post a job</button>
       </div>
      </div>
     </div>
