@@ -5,7 +5,6 @@ import InputTag from "@/components/InputTag";
 import { baseUrl } from "@/utils/constants";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 
@@ -326,7 +325,7 @@ const JobSeekerRegistration = () => {
   return (
     <div className="signup-page">
       <Toaster />
-      <Image src={"/search.jpg"} className="login-img" alt={""} />
+      <img src={"/search.jpg"} className="login-img" />
       <div className="auth-container">
         <h1
           style={{

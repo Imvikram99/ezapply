@@ -5,7 +5,7 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { baseUrl } from "@/utils/constants";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
+import { jwtDecode } from "jwt-decode";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -26,7 +26,19 @@ export default function Login() {
       if (response.data.token) {
         toast.success("Successfully logged in."); // Display success message
         localStorage.setItem("authenticated", response.data.token);
-        router.push("/home", { scroll: false });
+       
+
+        const decoded = jwtDecode(response.data.token)
+
+        if(decoded.roles.includes("ROLE_RECUITER")){
+          router.push("/my-jobs", { scroll: false });
+        }
+        else{
+          router.push("/jobs", { scroll: false }); 
+        }
+
+
+        
       }
     } catch (error) {
       if (error.response.status == 417) {
@@ -40,7 +52,7 @@ export default function Login() {
   return (
     <div className="signup-page">
       <Toaster />
-      <Image src={"/login.jpg"} className="login-img" alt={""} />
+      <img src={"/login.jpg"} className="login-img" />
       <div className="auth-container">
         <h1>
           <b>Welcome Guest,</b> Sign in to Ezapply

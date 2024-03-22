@@ -32,6 +32,12 @@
   }
 }
 
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: "Poppins", Arial, sans-serif;
   background: #fff;
@@ -1280,6 +1286,7 @@ body {
   border-radius: 8px;
   cursor: pointer;
   transition: 0.2s;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 .job-card:hover {
   transform: scale(1.02);
@@ -1299,6 +1306,7 @@ body {
   font-size: 13px;
   margin-top: 14px;
   line-height: 1.6em;
+  height: 60px;
 }
 .job-card-header {
   display: flex;

@@ -67,7 +67,7 @@ export default function RecuiterSignup() {
       toast.success(registerResponse.data.message);
 
       if (loginResponse.data.token || registerResponse.data.id){
-        router.push("/job-post", { scroll: false });
+        router.push("/my-jobs", { scroll: false });
       }
     } catch (error: any) {
       console.error("Recruiter registration failed:", error);

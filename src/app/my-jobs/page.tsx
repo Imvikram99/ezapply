@@ -6,12 +6,12 @@ import SearchType from '@/components/SearchType'
 import { baseUrl } from '@/utils/constants'
 import axios from 'axios'
 import { jwtDecode } from 'jwt-decode'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-import toast, { Toaster } from 'react-hot-toast'
 
 const JobListing =() => {
 
-
+  const router = useRouter();
   const [jobs, setJobs] = useState([
     {
       title: "UI / UX Designer",
@@ -41,13 +41,13 @@ const JobListing =() => {
 
         console.log(decoded)
 
-        // Check if the user role includes "ROLE_JOBSEEKER"
-        if (!decoded.roles.includes('ROLE_JOBSEEKER')) {
+        // Check if the user role includes "ROLE_RECUITER"
+        if (!decoded.roles.includes('ROLE_RECUITER')) {
           window.location.href = '/login';
           return;
         }
 
-        const response = await axios.get(`${baseUrl}/api/jobseekers/all-jobs`, {
+        const response = await axios.get(`${baseUrl}/api/recruitment/job-postings`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -66,38 +66,12 @@ const JobListing =() => {
     fetchJobs();
   }, []);
 
-  const applyToJob = async (jobId: any) => {
-    try {
-      const token = localStorage.getItem('authenticated');
-
-      const response = await axios.post(`${baseUrl}/api/jobseekers/apply/${jobId}`, null, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      toast.success('Applied to job successfully');
-      // You can update UI or show a success message here
-    } catch (error: any) {
-
-      if(error.response.status === 404){
-        window.location.href = 'job-search'
-        toast.error('You need to Onboard before applying..');
-        return;
-      }
-      toast.error('Error applying to job');
-      // Handle error: show error message or retry logic
-    }
-  };
-
-
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className="job">
-      <Toaster/>
     <div className="wrapper">
      <SearchMenu/>
      <div className="main-container">
@@ -109,8 +83,10 @@ const JobListing =() => {
        </div>
        <div>
       <h2>Available Jobs</h2>
-      <JobCardList jobs={jobs} applyToJob={applyToJob}/>
+      <JobCardList jobs={jobs} />
     </div>
+    <br/>
+    <button className='remgister' style={{height: 50, borderRadius: 4, color:'#fff', margin: '0 auto'}} onClick={() => router.push('/job-post', { scroll: false })}>Post a job</button>
       </div>
      </div>
     </div>
@@ -119,7 +95,7 @@ const JobListing =() => {
 }
 
 
-const JobCardList = ({ jobs , applyToJob} : any) => {
+const JobCardList = ({ jobs } : any) => {
   return (
     <div className="job-cards">
       {jobs.map((job : any, index: number) => (
@@ -139,9 +115,9 @@ const JobCardList = ({ jobs , applyToJob} : any) => {
             ))}
           </div>
           <div className="job-card-buttons">
-          <button className={`search-buttons card-buttons `} onClick={() => applyToJob(job.id)} >Apply Now</button>
-              <button className={`search-buttons card-buttons card-buttons-msg`} >Messages</button>
-         
+            {["Edit", "Remove"].map((button: any, buttonIndex: number) => (
+              <button className={`search-buttons card-buttons${buttonIndex === 1 ? ' card-buttons-msg' : ''}`} key={buttonIndex}>{button}</button>
+            ))}
           </div>
         </div>
       ))}
