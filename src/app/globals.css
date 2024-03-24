@@ -1814,3 +1814,221 @@ body {
     padding: 0 20px;
   }
 }
+
+
+.responsive-table {
+  background-color: #fefefe;
+  border-collapse: collapse;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.02);
+  width: 100%;
+  margin: .5rem 0;
+  overflow: hidden;
+}
+
+
+
+.responsive-table__row {
+  display: grid;
+  border-bottom: 1px solid #edeef2;
+  padding: 0 .5rem;
+}
+@media (min-width: 768px) {
+  .responsive-table__row {
+    grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .responsive-table__row {
+    grid-template-columns: 1fr 2fr 1fr;
+  }
+}
+.responsive-table__row th,
+.responsive-table__row td {
+  padding: 1rem;
+}
+.responsive-table__head {
+  background-color: #e1e8f2;
+  width: 100%;
+}
+@media (max-width: 991px) {
+  .responsive-table__head {
+    display: none;
+  }
+}
+.responsive-table__head__title {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+.responsive-table__body .responsive-table__row {
+  transition: 0.1s linear;
+  transition-property: color, background;
+}
+.responsive-table__body .responsive-table__row:last-child {
+  border-bottom: none;
+}
+
+.responsive-table__body__text {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.responsive-table__body__text::before {
+  margin-right: 1rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+@media (max-width: 991px) {
+  .responsive-table__body__text::before {
+    content: attr(data-title) " :";
+  }
+}
+@media (max-width: 400px) {
+  .responsive-table__body__text::before {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
+.responsive-table__body__text--name {
+  font-weight: 600;
+}
+@media (min-width: 768px) {
+  .responsive-table__body__text--name::before {
+    display: none;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .responsive-table__body__text--name {
+    grid-column: 1/2;
+    flex-direction: column;
+  }
+}
+/* SVG User Icon Style */
+.user-icon {
+  width: 100%;
+  max-width: 4rem;
+  height: auto;
+  margin-right: 1rem;
+}
+
+/* Status Indicator Style */
+.status-indicator {
+  display: inline-block;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  background: #222222;
+  margin-right: 0.5rem;
+}
+.status-indicator--active {
+  background: #25be64;
+}
+.status-indicator--inactive {
+  background: #dadde4;
+}
+.status-indicator--new {
+  background: #febf02;
+}
+
+
+.title {
+  color: #333;
+  text-align: left;
+  text-indent: 2rem;
+  font-size: 2em;
+  font-weight: 500;
+  line-height: 6rem;
+  height: 5rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.h2 {
+  color: rgba(51, 51, 51, 0.4);
+  font-weight: 700;
+  font-size: 1em;
+  line-height: 2.75em;
+  letter-spacing: -0.05em;
+}
+
+.float-label {
+  font-size: 0.95em;
+  font-style: italic;
+  font-weight: 300;
+  color: red;
+}
+
+.float-input {
+  font-size: 1.25em;
+  width: 26rem;
+  font-weight: 300;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 2rem;
+  transition: all 1s ease;
+  padding-bottom: 0.25em;
+  color: #333333;
+  border-radius: 0;
+  outline: none;
+}
+
+.info-style{
+display: flex;
+flex-direction: column;
+}
+
+.info-style-2{
+  display: flex;
+  flex-direction: row;
+  gap: 20;
+  margin-top: 20px
+  
+  }
+
+  .info-style-2 input[type="checkbox"]{
+    margin: 0 20px;
+  }
+  
+
+
+.ReactModal__Content--after-open::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+.ReactModal__Content--after-open::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+.ReactModal__Content--after-open::-webkit-scrollbar-thumb
+{
+	background-color: #F90;	
+	background-image: -webkit-linear-gradient(45deg,
+	                                          rgba(255, 255, 255, .2) 25%,
+											  transparent 25%,
+											  transparent 50%,
+											  rgba(255, 255, 255, .2) 50%,
+											  rgba(255, 255, 255, .2) 75%,
+											  transparent 75%,
+											  transparent)
+}
+
+
+
+.bullet-list{
+  list-style-type: decimal;
+  margin-left: 2vw;
+}
+
+.bullet-list li{
+  font-family: 'Raleway', serif;
+  font-weight: 500;
+  font-size: 1.05rem;
+  font-style: italic;
+  text-transform: capitalize;
+}
