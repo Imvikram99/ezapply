@@ -31,10 +31,10 @@ export default function Login() {
         const decoded = jwtDecode(response.data.token)
 
         if(decoded.roles.includes("ROLE_RECUITER")){
-          router.push("/my-jobs", { scroll: false });
+          router.push("/recuiter/my-jobs", { scroll: false });
         }
         else{
-          router.push("/jobs", { scroll: false }); 
+          router.push("/user/jobs", { scroll: false }); 
         }
 
 
