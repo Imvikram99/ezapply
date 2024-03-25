@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 
-const SearchType = () => {
+const SearchRecuiter = () => {
   const router = useRouter();
   return (
     <div id="nav-bar">
@@ -14,17 +14,17 @@ const SearchType = () => {
         <hr />
       </div>
       <div id="nav-content">
-        <div className="nav-buttom" onClick={() => router.push("/user", { scroll: false })}>
+        <div className="nav-buttom" onClick={() => router.push("/recuiter", { scroll: false })}>
           <i className="fa fa-user"></i>
           <span>Home</span>
         </div>
-        <div className="nav-buttom" onClick={() => router.push("/user/jobs", { scroll: false })}>
+        <div className="nav-buttom" onClick={() => router.push("/recuiter/my-jobs", { scroll: false })}>
           <i className="fa fa-list"></i>
-          <span>All Jobs</span>
+          <span>My Jobs</span>
         </div>
-        <div className="nav-buttom" onClick={() => router.push("/user/applied-jobs", { scroll: false })}>
+        <div className="nav-buttom" onClick={() => router.push("/recuiter/job-post", { scroll: false })}>
           <i className="fa fa-heart"></i>
-          <span>Applied Jobs</span>
+          <span>Post a Job</span>
         </div>
         <hr />
         <div className="nav-buttom">
@@ -54,7 +54,7 @@ const SearchType = () => {
             >
               Logout
             </a>
-            <span id="nav-footer-subtitle">User</span>
+            <span id="nav-footer-subtitle">Recuiter</span>
           </div>
         </div>
       </div>
@@ -62,4 +62,4 @@ const SearchType = () => {
   );
 };
 
-export default SearchType;
+export default SearchRecuiter;

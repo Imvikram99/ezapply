@@ -1,9 +1,13 @@
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
+import Head from 'next/head'
 
 export default function Home() {
   return (
     <>
+       <Head>
+        <title>My page title</title>
+      </Head>
       <Navbar />
       <Hero />
       <div className="comtainer start">

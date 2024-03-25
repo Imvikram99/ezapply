@@ -1,13 +1,11 @@
 "use client";
 
-import withAuth from "@/components/Auth";
-import SearchMenu from "@/components/SearchMenu";
-import SearchType from "@/components/SearchType";
 import { baseUrl } from "@/utils/constants";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { LoaderIcon } from "react-hot-toast";
 import Modal from "react-modal";
 
 const JobListing = () => {
@@ -106,7 +104,7 @@ const JobListing = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div style={{marginLeft:30, marginTop: 30}}><LoaderIcon/></div>;
   }
 
   const fetchApplications = async (jobId: any) => {
@@ -227,7 +225,7 @@ const JobListing = () => {
   };
 
   return (
-    <div className="job">
+    <div className="searched-jobs">
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
@@ -351,167 +349,151 @@ const JobListing = () => {
           <div className="info-style">
             <label className="float-label">Industry Preferences: </label>
             <ul className="bullet-list">
-              {currentApplication?.industryPreferences?.map((item : any, index: number) => (
-                <li key={index}>{item}</li>
-              )) ?? <li>No industry preferences available</li>}
+              {currentApplication?.industryPreferences?.map(
+                (item: any, index: number) => <li key={index}>{item}</li>
+              ) ?? <li>No industry preferences available</li>}
             </ul>
           </div>
 
           <div className="info-style">
             <label className="float-label">Company Preferences: </label>
             <ul className="bullet-list">
-              {currentApplication?.companyPreferences?.map((item : any, index: number) => (
-                <li key={index}>{item}</li>
-              )) ?? <li>No company preferences available</li>}
+              {currentApplication?.companyPreferences?.map(
+                (item: any, index: number) => <li key={index}>{item}</li>
+              ) ?? <li>No company preferences available</li>}
             </ul>
           </div>
 
           <div className="info-style">
             <label className="float-label">Education History: </label>
             <ul className="bullet-list">
-              {currentApplication?.educationHistory?.map((edu: any, index: number) => (
-                <li key={index}>
-                  {edu.degree} in {edu.fieldOfStudy} from {edu.institutionName} <br/>
-                  Graduated in {edu.graduationYear}
-                </li>
-              )) ?? <li>No education history available</li>}
+              {currentApplication?.educationHistory?.map(
+                (edu: any, index: number) => (
+                  <li key={index}>
+                    {edu.degree} in {edu.fieldOfStudy} from{" "}
+                    {edu.institutionName} <br />
+                    Graduated in {edu.graduationYear}
+                  </li>
+                )
+              ) ?? <li>No education history available</li>}
             </ul>
           </div>
 
           <div className="info-style">
             <label className="float-label">Work Experience: </label>
             <ul className="bullet-list">
-              {currentApplication?.workExperience?.map((exp: any, index: number) => (
-                <li key={index}>
-                  {exp.jobTitle} at {exp.companyName},<br/> {exp.startDate} -{" "}
-                  {exp.endDate} <br/> {exp.description}
-                </li>
-              )) ?? <li>No work experience available</li>}
+              {currentApplication?.workExperience?.map(
+                (exp: any, index: number) => (
+                  <li key={index}>
+                    {exp.jobTitle} at {exp.companyName},<br /> {exp.startDate} -{" "}
+                    {exp.endDate} <br /> {exp.description}
+                  </li>
+                )
+              ) ?? <li>No work experience available</li>}
             </ul>
           </div>
 
           <div className="info-style">
             <label className="float-label">Certifications: </label>
             <ul className="bullet-list">
-              {currentApplication?.certifications?.map((item : any, index: number) => (
-                <li key={index}>{item}</li>
-              )) ?? <li>No certifications available</li>}
+              {currentApplication?.certifications?.map(
+                (item: any, index: number) => <li key={index}>{item}</li>
+              ) ?? <li>No certifications available</li>}
             </ul>
           </div>
 
           <div className="info-style">
             <label className="float-label">Personal Projects: </label>
             <ul className="bullet-list">
-              {currentApplication?.personalProjects?.map((project: any, index: number) => (
-                <li key={index}>
-                  {project.projectName}: {project.projectDescription} ,<br/>
-                  Technologies used: {project.technologiesUsed}, <br/> Project Link:{" "}
-                  {project.projectLink}
-                </li>
-              )) ?? <li>No personal projects available</li>}
+              {currentApplication?.personalProjects?.map(
+                (project: any, index: number) => (
+                  <li key={index}>
+                    {project.projectName}: {project.projectDescription} ,<br />
+                    Technologies used: {project.technologiesUsed}, <br />{" "}
+                    Project Link: {project.projectLink}
+                  </li>
+                )
+              ) ?? <li>No personal projects available</li>}
             </ul>
           </div>
 
-
           <div className="h2">Additional Information</div>
 
-<div className="info-style-2">
-  <label className="float-label">Is Serving Notice Period: </label>
-  <input
-    type="checkbox"
-    checked={currentApplication?.isServingNoticePeriod ?? false}
-    disabled
-  />
-</div>
+          <div className="info-style-2">
+            <label className="float-label">Is Serving Notice Period: </label>
+            <input
+              type="checkbox"
+              checked={currentApplication?.isServingNoticePeriod ?? false}
+              disabled
+            />
+          </div>
 
-<div className="info-style-2">
-  <label className="float-label">Is Notice Period Negotiable: </label>
-  <input
-    type="checkbox"
-    checked={currentApplication?.isNoticePeriodNegotiable ?? false}
-    disabled
-  />
-</div>
+          <div className="info-style-2">
+            <label className="float-label">Is Notice Period Negotiable: </label>
+            <input
+              type="checkbox"
+              checked={currentApplication?.isNoticePeriodNegotiable ?? false}
+              disabled
+            />
+          </div>
 
-<div className="info-style-2">
-  <label className="float-label">Willing to Relocate: </label>
-  <input
-    type="checkbox"
-    checked={currentApplication?.willingToRelocate ?? false}
-    disabled
-  />
-</div>
+          <div className="info-style-2">
+            <label className="float-label">Willing to Relocate: </label>
+            <input
+              type="checkbox"
+              checked={currentApplication?.willingToRelocate ?? false}
+              disabled
+            />
+          </div>
 
-<div className="info-style-2">
-  <label className="float-label">Seeking Full Time: </label>
-  <input
-    type="checkbox"
-    checked={currentApplication?.seekingFullTime ?? false}
-    disabled
-  />
-</div>
+          <div className="info-style-2">
+            <label className="float-label">Seeking Full Time: </label>
+            <input
+              type="checkbox"
+              checked={currentApplication?.seekingFullTime ?? false}
+              disabled
+            />
+          </div>
 
-<div className="info-style-2">
-  <label className="float-label">Seeking Part Time: </label>
-  <input
-    type="checkbox"
-    checked={currentApplication?.seekingPartTime ?? false}
-    disabled
-  />
-</div>
+          <div className="info-style-2">
+            <label className="float-label">Seeking Part Time: </label>
+            <input
+              type="checkbox"
+              checked={currentApplication?.seekingPartTime ?? false}
+              disabled
+            />
+          </div>
 
-<div className="info-style-2">
-  <label className="float-label">Seeking Contract: </label>
-  <input
-    type="checkbox"
-    checked={currentApplication?.seekingContract ?? false}
-    disabled
-  />
-</div>
-
+          <div className="info-style-2">
+            <label className="float-label">Seeking Contract: </label>
+            <input
+              type="checkbox"
+              checked={currentApplication?.seekingContract ?? false}
+              disabled
+            />
+          </div>
         </form>
       </Modal>
-      <div className="wrapper">
-        <SearchMenu />
-        <div className="main-container">
-          <SearchType />
-          <div className="searched-jobs">
-            <div className="searched-bar">
-              <div className="searched-show">Showing {jobs.length} Jobs</div>
-              <div className="searched-sort">
-                Sort by: <span className="post-time">Newest Post </span>
-                <span className="menu-icon">▼</span>
-              </div>
-            </div>
-            {showTable ? (
-              renderApplicationsTable({ openModal, setCurrentApplication })
-            ) : (
-              <div>
-                <h2>Available Jobs</h2>
-                <JobCardList
-                  jobs={jobs}
-                  fetchApplications={fetchApplications}
-                  openModal={openModal}
-                />
-              </div>
-            )}
-            <br />
-
-            <button
-              className="remgister"
-              style={{
-                height: 50,
-                borderRadius: 4,
-                color: "#fff",
-                margin: "0 auto",
-              }}
-              onClick={() => router.push("/job-post", { scroll: false })}
-            >
-              Post a job
-            </button>
-          </div>
+      <div className="searched-bar" style={{marginTop: 20}}>
+        <div className="searched-show">Showing {jobs.length} Jobs</div>
+        <div className="searched-sort">
+          Sort by: <span className="post-time">Newest Post </span>
+          <span className="menu-icon">▼</span>
         </div>
       </div>
+      {showTable ? (
+        renderApplicationsTable({ openModal, setCurrentApplication })
+      ) : (
+        <div>
+          <h2>Available Jobs</h2>
+          <JobCardList
+            jobs={jobs}
+            fetchApplications={fetchApplications}
+            openModal={openModal}
+          />
+        </div>
+      )}
+      
     </div>
   );
 };
@@ -569,4 +551,4 @@ const JobCardList = ({ jobs, fetchApplications }: any) => {
   );
 };
 
-export default withAuth(JobListing);
+export default JobListing;

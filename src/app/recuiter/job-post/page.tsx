@@ -115,17 +115,16 @@ const PostJob = () => {
 
 
   if(loading){
-    return <LoaderIcon/>
+    return <div style={{marginLeft:30, marginTop: 30}}><LoaderIcon/></div>
   }else{
 
     return (
-      <div className="post-job-page">
-        <Toaster />
-        <img src={"/pomst.jpg"} className="login-img" />
-        <div className="auth-container">
-          <h1 style={{ textAlign: "center", fontWeight: "bolder" }}>
-            Post a Job
-          </h1>
+
+        <div className="auth-container" style={{marginLeft: 0, marginTop: -60}}>
+           <div className="searched-show">Post a Job</div>
+        <div className="searched-sort">
+          you can edit later in dashboard
+        </div>
           <form className="post-job-form" onSubmit={handleSubmit}>
             <div className="field-container">
               <label
@@ -359,7 +358,7 @@ const PostJob = () => {
             </button>
           </form>
         </div>
-      </div>
+
     );
   }
 
