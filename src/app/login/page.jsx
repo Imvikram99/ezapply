@@ -26,19 +26,30 @@ export default function Login() {
       if (response.data.token) {
         toast.success("Successfully logged in."); // Display success message
         localStorage.setItem("authenticated", response.data.token);
-       
 
-        const decoded = jwtDecode(response.data.token)
+        const decoded = jwtDecode(response.data.token);
 
-        if(decoded.roles.includes("ROLE_RECUITER")){
+        if (decoded.roles.includes("ROLE_RECUITER")) {
           router.push("/recuiter/my-jobs", { scroll: false });
-        }
-        else{
-          router.push("/user/jobs", { scroll: false }); 
-        }
+        } else {
+          // Generate referral code
 
+          console.log("here");
+          const referralResponse = await axios.get(
+            `${baseUrl}/api/referral-codes/generate/flat`,
+            {
+              headers: {
+                Authorization: `Bearer ${response.data.token}`,
+              },
+            }
+          );
 
-        
+          // Handle referral code response here
+          let referralCode = referralResponse.data;
+          localStorage.setItem('referralCode',referralCode)
+
+          router.push("/user/jobs", { scroll: false });
+        }
       }
     } catch (error) {
       if (error.response.status == 417) {
