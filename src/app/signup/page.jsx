@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -9,11 +9,18 @@ import { baseUrl } from "@/utils/constants";
 export default function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [referralCode, setReferralCode] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState("JOBSEEKER");
-  const router = useRouter()
- 
+  const router = useRouter();
 
+  useEffect(() => {
+    const queryString = window.location.search;
+
+    const referralCode = new URLSearchParams(queryString).get("refralcode");
+
+    setReferralCode(referralCode);
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault(); // Prevent default form submission behavior
@@ -24,14 +31,19 @@ export default function Signup() {
     }
 
     try {
-      const response = await axios.post(
-        `${baseUrl}/auth/signup`,
-        {
-          username: username,
-          password: password,
-          role: role,
-        }
-      );
+
+      const userData = {
+        username: username,
+        password: password,
+        role: role,
+      };
+  
+      // If referralCode exists, add it to the userData object
+      if (referralCode) {
+        userData.referralCode = referralCode;
+      }
+
+      const response = await axios.post(`${baseUrl}/auth/signup`,userData);
 
       console.log(response.data);
       toast.success(response.data.message); // Display success message
@@ -98,7 +110,13 @@ export default function Signup() {
           </button>
           <div className="switch-container">
             <p>
-              Already have an account? <span tabIndex="0" onClick={() => router.push('/login', { scroll: false })}>Sign In</span>
+              Already have an account?{" "}
+              <span
+                tabIndex="0"
+                onClick={() => router.push("/login", { scroll: false })}
+              >
+                Sign In
+              </span>
             </p>
           </div>
         </form>
