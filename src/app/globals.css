@@ -2387,6 +2387,8 @@ label[for="nav-footer-toggle"] {
 .right{
   padding-right: 10px;
   padding-top: 10px;
+  position: sticky;
+  top: 10px;
 }
 .mid img{
   max-width: 100%;
@@ -2396,6 +2398,8 @@ label[for="nav-footer-toggle"] {
 .left{
   padding-left: 12px ;
   padding-top: 12px;
+  position: sticky;
+  top: 10px;
 }
 
 strong{
@@ -2426,4 +2430,68 @@ strong{
   cursor: pointer; 
   text-align: left;
   width: 90%;
+}
+
+
+.mui-1u846gp {
+  background-color: #F1F7F6;
+  border-left: 4px solid;
+  border-left-color: #195045;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  padding: 1rem;
+  padding-bottom: 1rem;
+  position: relative;
+}
+
+.mui-zvu67g {
+    position: absolute;
+    top: -0.75rem;
+    left: -1rem;
+    color: #195045;
+    background-color: #E5ECEF;
+    border-radius: .5rem;
+    padding: 0.25rem;
+
+    display: flex;
+    -webkit-box-pack: center;
+
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+
+.mui-sedpvs {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  list-style: disc outside;
+  padding-left: 2rem;
+  color: #637381;
+}
+
+.mui-ioa8ei {
+  display: -ms-flexbox;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  padding-right: 16px;
+  padding-left: 0;
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+  list-style: inherit;
+  display: list-item;
+  color: #637381;
+  line-height: 1.75rem;
 }
